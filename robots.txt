@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://comunidadedoreino.org.br/sitemap.xml

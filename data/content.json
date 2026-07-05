@@ -1,0 +1,5 @@
+{
+  "siteName": "Comunidade do Reino",
+  "backendReady": ["Supabase", "Firebase", "Node.js"],
+  "collections": ["projects", "library", "podcasts", "volunteers", "contacts"]
+}
