@@ -1,12 +1,12 @@
 const site = {
   nav: [
-    ['index.html', 'Início', 'home'],
-    ['quem-somos.html', 'Quem Somos', 'users-round'],
-    ['projetos.html', 'Projetos', 'layout-grid'],
-    ['biblioteca.html', 'Biblioteca', 'book-open'],
-    ['podcasts.html', 'Podcasts', 'podcast'],
-    ['voluntariado.html', 'Voluntariado', 'heart-handshake'],
-    ['contato.html', 'Contato', 'message-circle']
+    ['index.html', 'Início'],
+    ['quem-somos.html', 'Quem Somos'],
+    ['projetos.html', 'Projetos'],
+    ['biblioteca.html', 'Biblioteca'],
+    ['podcasts.html', 'Podcasts'],
+    ['voluntariado.html', 'Voluntariado'],
+    ['contato.html', 'Contato']
   ],
   footerGroups: {
     Institucional: [['Quem Somos','quem-somos.html'], ['Projetos','projetos.html'], ['Voluntariado','voluntariado.html'], ['Contato','contato.html']],
@@ -33,13 +33,12 @@ function renderHeader() {
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header class="site-header" role="banner">
       <div class="container header-inner">
-        <a class="brand" href="index.html" aria-label="Comunidade do Reino - Início">
-          <span class="brand-mark" aria-hidden="true">CR</span>
-          <span class="brand-text"><span>Comunidade</span><span>do Reino</span></span>
+        <a class="brand" href="index.html" aria-label="Início">
+          <img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" />
         </a>
         <nav class="nav" id="siteNav" aria-label="Navegação principal">
           <ul class="nav-list">
-            ${site.nav.map(([href, label, iconName]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ''}>${icon(iconName)}<span>${label}</span></a></li>`).join('')}
+            ${site.nav.map(([href, label]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ''}>${label}</a></li>`).join('')}
           </ul>
         </nav>
         <div class="header-actions">
@@ -60,10 +59,13 @@ function renderFooter() {
       <div class="container">
         <div class="footer-grid">
           <div>
-            <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">CR</span><span class="brand-text"><span>Comunidade</span><span>do Reino</span></span></a>
+            <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" /></a>
             <p class="footer-about">Portal institucional de informação, cuidado, biblioteca, projetos, voluntariado e comunicação da Comunidade do Reino.</p>
             <div class="socials footer-socials" aria-label="Redes sociais">
-              <a href="https://instagram.com" aria-label="Instagram">${icon('instagram')}</a><a href="https://facebook.com" aria-label="Facebook">${icon('facebook')}</a><a href="https://youtube.com" aria-label="YouTube">${icon('youtube')}</a><a href="https://spotify.com" aria-label="Spotify">${icon('music-2')}</a>
+              <a href="https://instagram.com" aria-label="Instagram">${icon('instagram')}</a>
+              <a href="https://facebook.com" aria-label="Facebook">${icon('facebook')}</a>
+              <a href="https://youtube.com" aria-label="YouTube">${icon('youtube')}</a>
+              <a href="https://spotify.com" aria-label="Spotify">${icon('music')}</a>
             </div>
           </div>${groups}
         </div>

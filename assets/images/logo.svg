@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Logo Comunidade do Reino</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC617"/>
+      <stop offset="100%" stop-color="#112B66"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#g)" stroke="#fff" stroke-width="4"/>
+  <text x="50%" y="56%" text-anchor="middle" font-family="Inter, sans-serif" font-size="44" font-weight="900" fill="#fff" dy="0.18em">CR</text>
+</svg>
