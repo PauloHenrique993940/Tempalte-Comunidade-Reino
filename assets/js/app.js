@@ -180,5 +180,123 @@ document.addEventListener('DOMContentLoaded', () => {
   setupForms();
   setupNewsletter();
   setupBackToTop();
+  setupProjectCarousel();
+  setupVideoPlayButtons();
   if (window.lucide) window.lucide.createIcons();
 });
+
+function setupProjectCarousel() {
+  const carousel = document.querySelector('[data-carousel]');
+  if (!carousel) return;
+  const track = carousel.querySelector('.project-carousel__track');
+  const dotsContainer = carousel.querySelector('.project-carousel__dots');
+  const cards = Array.from(track.children);
+  let isDragging = false;
+  let startX = 0;
+  let startTrackX = 0;
+  let trackX = 0;
+  let maxScroll = track.scrollWidth - carousel.clientWidth;
+  let cardWidth = cards[0]?.getBoundingClientRect().width || carousel.clientWidth;
+  let activeIndex = 0;
+
+  const updatePosition = x => {
+    trackX = Math.max(0, Math.min(x, maxScroll));
+    track.style.transform = `translateX(${-trackX}px)`;
+  };
+
+  const snapToCard = index => {
+    activeIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const targetX = cards[activeIndex].offsetLeft - (carousel.clientWidth - cards[activeIndex].clientWidth) / 2;
+    updatePosition(targetX);
+    highlightDot(activeIndex);
+  };
+
+  const refreshDimensions = () => {
+    cardWidth = cards[0]?.getBoundingClientRect().width || carousel.clientWidth;
+    maxScroll = Math.max(0, track.scrollWidth - carousel.clientWidth);
+    snapToCard(activeIndex);
+  };
+
+  const createDots = () => {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    cards.forEach((_, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'project-carousel__dot';
+      button.addEventListener('click', () => snapToCard(index));
+      dotsContainer.appendChild(button);
+    });
+    highlightDot(activeIndex);
+  };
+
+  const highlightDot = index => {
+    if (!dotsContainer) return;
+    dotsContainer.querySelectorAll('.project-carousel__dot').forEach((dot, dotIndex) => {
+      dot.classList.toggle('is-active', dotIndex === index);
+    });
+  };
+
+  createDots();
+
+  carousel.addEventListener('pointerdown', event => {
+    isDragging = true;
+    startX = event.clientX;
+    startTrackX = trackX;
+    carousel.setPointerCapture(event.pointerId);
+    carousel.classList.add('is-dragging');
+  });
+
+  carousel.addEventListener('pointermove', event => {
+    if (!isDragging) return;
+    const delta = startX - event.clientX;
+    updatePosition(startTrackX + delta);
+  });
+
+  const stopDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    carousel.classList.remove('is-dragging');
+    const index = Math.round(trackX / cardWidth);
+    snapToCard(index);
+  };
+
+  carousel.addEventListener('pointerup', stopDrag);
+  carousel.addEventListener('pointercancel', stopDrag);
+  carousel.addEventListener('pointerleave', stopDrag);
+
+  window.addEventListener('resize', refreshDimensions);
+  const resizeObserver = new ResizeObserver(refreshDimensions);
+  resizeObserver.observe(carousel);
+  resizeObserver.observe(track);
+}
+
+function setupVideoPlayButtons() {
+  document.querySelectorAll('.feature-panel--video .media-card').forEach(card => {
+    const video = card.querySelector('video');
+    if (!video) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'video-play-overlay';
+    button.setAttribute('aria-label', 'Tocar vídeo');
+    card.appendChild(button);
+
+    const updateOverlay = () => {
+      button.classList.toggle('hidden', !video.paused && !video.ended);
+    };
+
+    button.addEventListener('click', () => {
+      if (video.paused || video.ended) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener('play', updateOverlay);
+    video.addEventListener('pause', updateOverlay);
+    video.addEventListener('ended', updateOverlay);
+    updateOverlay();
+  });
+}
+
