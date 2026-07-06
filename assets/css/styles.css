@@ -564,8 +564,14 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+}
+
+.hero-actions .btn {
+  flex: 1 1 min(220px, 100%);
+  min-width: 220px;
+  max-width: 280px;
 }
 
 .grid {
