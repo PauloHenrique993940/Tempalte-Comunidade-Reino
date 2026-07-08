@@ -41,12 +41,11 @@
                         data-filter="downloads">Downloads</button></div>
                 <div id="biblioteca" class="grid grid-3">
                     <article class="card" data-category="livros" data-search-item>
-                        <div class="media-card"><img
-                                src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80"
-                                alt="Capa de livro genérica" /></div><span class="tag">Livro</span>
-                        <h3>O Mosaico da Fé</h3>
-                        <p>Material de leitura para reflexão, identidade e amadurecimento espiritual.</p>
-                        <div class="card-footer"><button class="btn btn-ghost" type="button">Ver detalhes</button></div>
+                        <div class="media-card"><img src="../assets/biblioteca/capas/capaBokEspanhol.jpeg"
+                                alt="Capa de livro genérica" /></div>
+                        <span class="tag">Livro</span>
+                        <div class="card-footer"><button class="btn btn-ghost" type="button"
+                                data-open-book="mosaico-da-fe">Ver detalhes</button></div>
                     </article>
                     <article class="card" data-category="apostilas" data-search-item>
                         <div class="media-card"><img
@@ -92,8 +91,73 @@
             </div>
         </section>
     </main>
+    <div class="modal-overlay" id="bookModal" hidden aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bookModalTitle">
+            <button class="modal-close" type="button" data-close-modal aria-label="Fechar modal">×</button>
+            <div class="modal-grid">
+                <div class="modal-detail">
+                    <div class="detail-card">
+                        <div class="detail-cover"><img src="../assets/biblioteca/capas/capaBokEspanhol.jpeg"
+                                alt="Capa de livro" /></div>
+                        <div class="detail-body">
+                            <span class="tag">Livro</span>
+                            <h2 id="bookModalTitle" data-book-title>Espanhol em 27 dias</h2>
+                            <p class="detail-author"> Gilberto (Luzidio Smith) </p>
+                            <div class="detail-rating" aria-label="Avaliação de 4.5 de 5 estrelas">
+                                <i data-lucide="star">⭐⭐⭐</i>
+                                <i data-lucide="star"></i>
+                                <i data-lucide="star"></i>
+                                <span class="detail-rating-value">4.5</span>
+                                <button class="icon-btn" type="button" aria-label="Compartilhar">
+                                    <i data-lucide="share-2"></i>
+                                </button>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn btn-primary" type="button" data-read-book>Emprestar</button>
+                                <button class="btn btn-outline" type="button" data-preview-book>Pré-visualização</button>
+                            </div>
+                            <p class="detail-description">
+                                Gilberto (Luzidio Smith) acredita que toda pessoa possui um potencial que, muitas vezes,
+                                apenas precisa ser despertado. Natural de Barra do Corda (MA), encontrou em sua própria
+                                história de vida a inspiração para compartilhar princípios de fé, responsabilidade e
+                                desenvolvimento humano.
+
+                                Em 27 Dias – Letra por Letra, convida o leitor a percorrer uma jornada de reflexão e
+                                crescimento, mostrando que pequenas mudanças diárias podem transformar a forma de
+                                pensar, agir e viver. Seu propósito é caminhar ao lado das pessoas, incentivando-as a
+                                crescer, servir e construir um legado que faça a diferença.
+                            </p>
+                            <a class="detail-more" href="#">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="pdfModal" hidden aria-hidden="true">
+        <div class="modal modal--wide" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+            <button class="modal-close" type="button" data-close-pdf-modal aria-label="Fechar leitura">×</button>
+            <div class="modal-grid pdf-reader">
+                <div class="pdf-reader-header">
+                    <div>
+                        <p class="eyebrow">Leitura digital</p>
+                        <h2 id="pdfModalTitle">Espanhol em 27 dias</h2>
+                    </div>
+                    <div class="pdf-controls">
+                        <button class="btn btn-ghost" type="button" data-prev-pdf-page>Anterior</button>
+                        <span class="pdf-page-label"><span data-pdf-page-number>1</span> / <span data-pdf-page-count>0</span></span>
+                        <button class="btn btn-ghost" type="button" data-next-pdf-page>Próxima</button>
+                        <button class="btn btn-ghost" type="button" data-pdf-zoom-out>−</button>
+                        <button class="btn btn-ghost" type="button" data-pdf-zoom-in>+</button>
+                    </div>
+                </div>
+                <div class="pdf-viewer"></div>
+            </div>
+        </div>
+    </div>
     <div data-component="footer"></div>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js" defer></script>
     <script src="assets/js/app.js" defer></script>
 </body>
 

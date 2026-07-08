@@ -182,8 +182,222 @@ document.addEventListener('DOMContentLoaded', () => {
   setupBackToTop();
   setupProjectCarousel();
   setupVideoPlayButtons();
+  setupBookModal();
   if (window.lucide) window.lucide.createIcons();
 });
+
+function setupBookModal() {
+  const modal = document.getElementById('bookModal');
+  if (!modal) return;
+
+  const openButtons = Array.from(document.querySelectorAll('[data-open-book]'));
+  const closeButtons = Array.from(modal.querySelectorAll('[data-close-modal]'));
+  const overlay = modal;
+  const readButton = modal.querySelector('[data-read-book]');
+  const previewButton = modal.querySelector('[data-preview-book]');
+  const pdfModal = document.getElementById('pdfModal');
+  const pdfCloseButtons = pdfModal ? Array.from(pdfModal.querySelectorAll('[data-close-pdf-modal]')) : [];
+  const pdfOverlay = pdfModal;
+  const pdfUrl = 'assets/biblioteca/EbookEspanhol.pdf';
+
+  const openModal = () => {
+    modal.removeAttribute('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-locked');
+  };
+
+  const closeModal = () => {
+    modal.setAttribute('hidden', '');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-locked');
+  };
+
+  let pdfDoc = null;
+  let currentPage = 1;
+  let pageCount = 0;
+  let currentScale = 1.0;
+  const pdfViewer = pdfModal ? pdfModal.querySelector('.pdf-viewer') : null;
+  const pageNumberLabel = pdfModal ? pdfModal.querySelector('[data-pdf-page-number]') : null;
+  const pageCountLabel = pdfModal ? pdfModal.querySelector('[data-pdf-page-count]') : null;
+  const prevPageButton = pdfModal ? pdfModal.querySelector('[data-prev-pdf-page]') : null;
+  const nextPageButton = pdfModal ? pdfModal.querySelector('[data-next-pdf-page]') : null;
+  const zoomInButton = pdfModal ? pdfModal.querySelector('[data-pdf-zoom-in]') : null;
+  const zoomOutButton = pdfModal ? pdfModal.querySelector('[data-pdf-zoom-out]') : null;
+  let wheelScrollTimeout = 0;
+  let touchStartY = null;
+
+  const renderPage = pageNum => {
+    if (!pdfViewer || !pdfDoc) return;
+    pdfDoc.getPage(pageNum).then(page => {
+      const containerWidth = pdfViewer.clientWidth - 24;
+      const viewport = page.getViewport({ scale: currentScale });
+      const scale = Math.min(currentScale, containerWidth / viewport.width);
+      const adjustedViewport = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = adjustedViewport.height;
+      canvas.width = adjustedViewport.width;
+      const renderContext = {
+        canvasContext: context,
+        viewport: adjustedViewport
+      };
+      pdfViewer.innerHTML = '';
+      pdfViewer.appendChild(canvas);
+      page.render(renderContext);
+      if (pageNumberLabel) pageNumberLabel.textContent = pageNum;
+    });
+  };
+
+  const loadPdf = () => {
+    if (!pdfModal || !pdfViewer) return;
+    if (pdfDoc) {
+      renderPage(currentPage);
+      return;
+    }
+    if (!window.pdfjsLib) {
+      console.error('PDF.js não encontrado. Verifique se o script pdf.min.js foi carregado.');
+      if (pdfViewer) {
+        pdfViewer.innerHTML = '<div class="pdf-error">Leitor indisponível. O visualizador de PDF não foi carregado.</div>';
+      }
+      return;
+    }
+
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
+    window.pdfjsLib.getDocument(pdfUrl).promise.then(doc => {
+      pdfDoc = doc;
+      pageCount = doc.numPages;
+      if (pageCountLabel) pageCountLabel.textContent = pageCount;
+      currentPage = 1;
+      renderPage(currentPage);
+    }).catch(error => {
+      console.error('PDF.js erro ao carregar:', error);
+      if (pdfViewer) {
+        pdfViewer.innerHTML = '<div class="pdf-error">Não foi possível carregar o PDF. Verifique o caminho ou o arquivo.</div>';
+      }
+    });
+  };
+
+  const openPdfModal = () => {
+    if (!pdfModal) return;
+    pdfModal.removeAttribute('hidden');
+    pdfModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-locked');
+    loadPdf();
+  };
+
+  const closePdfModal = () => {
+    if (!pdfModal) return;
+    pdfModal.setAttribute('hidden', '');
+    pdfModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-locked');
+    if (pdfViewer) pdfViewer.innerHTML = '';
+    pdfDoc = null;
+  };
+
+  openButtons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      openModal();
+    });
+  });
+
+  closeButtons.forEach(button => button.addEventListener('click', closeModal));
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) closeModal();
+  });
+
+  if (pdfModal) {
+    pdfCloseButtons.forEach(button => button.addEventListener('click', closePdfModal));
+    pdfOverlay.addEventListener('click', event => {
+      if (event.target === pdfOverlay) closePdfModal();
+    });
+  }
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      if (modal.getAttribute('aria-hidden') === 'false') closeModal();
+      if (pdfModal && pdfModal.getAttribute('aria-hidden') === 'false') closePdfModal();
+    }
+  });
+
+  if (previewButton && pdfModal) {
+    previewButton.addEventListener('click', () => {
+      closeModal();
+      openPdfModal();
+    });
+  }
+
+  if (readButton && pdfModal) {
+    readButton.addEventListener('click', () => {
+      closeModal();
+      openPdfModal();
+    });
+  }
+
+  if (prevPageButton) {
+    prevPageButton.addEventListener('click', () => {
+      if (currentPage <= 1) return;
+      currentPage -= 1;
+      renderPage(currentPage);
+    });
+  }
+
+  if (nextPageButton) {
+    nextPageButton.addEventListener('click', () => {
+      if (!pdfDoc || currentPage >= pageCount) return;
+      currentPage += 1;
+      renderPage(currentPage);
+    });
+  }
+
+  if (zoomInButton) {
+    zoomInButton.addEventListener('click', () => {
+      currentScale = Math.min(currentScale + 0.2, 3.0);
+      renderPage(currentPage);
+    });
+  }
+
+  if (zoomOutButton) {
+    zoomOutButton.addEventListener('click', () => {
+      currentScale = Math.max(currentScale - 0.2, 0.6);
+      renderPage(currentPage);
+    });
+  }
+
+  if (pdfViewer) {
+    pdfViewer.addEventListener('wheel', event => {
+      event.preventDefault();
+      clearTimeout(wheelScrollTimeout);
+      wheelScrollTimeout = window.setTimeout(() => {
+        if (event.deltaY > 0 && currentPage < pageCount) {
+          currentPage += 1;
+          renderPage(currentPage);
+        } else if (event.deltaY < 0 && currentPage > 1) {
+          currentPage -= 1;
+          renderPage(currentPage);
+        }
+      }, 50);
+    }, { passive: false });
+
+    pdfViewer.addEventListener('touchstart', event => {
+      touchStartY = event.touches[0]?.clientY ?? null;
+    });
+
+    pdfViewer.addEventListener('touchend', event => {
+      const touchEndY = event.changedTouches[0]?.clientY ?? null;
+      if (touchStartY === null || touchEndY === null) return;
+      const delta = touchStartY - touchEndY;
+      if (Math.abs(delta) < 40) return;
+      if (delta > 0 && currentPage < pageCount) {
+        currentPage += 1;
+        renderPage(currentPage);
+      } else if (delta < 0 && currentPage > 1) {
+        currentPage -= 1;
+        renderPage(currentPage);
+      }
+      touchStartY = null;
+    });
+  }
+}
 
 function setupProjectCarousel() {
   const carousel = document.querySelector('[data-carousel]');
