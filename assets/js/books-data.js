@@ -2,7 +2,7 @@ const booksData = {
   "espanhol-em-27-dias": {
     title: "Espanhol em 27 dias",
     author: "Gilberto (Luzidio Smith)",
-    cover: "assets/biblioteca/capas/espanholEm27Dias.jpg",
+    cover: "assets/biblioteca/capas/espanholEm27Dias.png",
     rating: 4.5,
     description: `Gilberto (Luzidio Smith) acredita que toda pessoa possui um potencial que, muitas vezes, apenas precisa ser despertado. Natural de Barra do Corda (MA), encontrou em sua própria história de vida a inspiração para compartilhar princípios de fé, responsabilidade e desenvolvimento humano...`,
     fullDescription: `Em 27 Dias – Letra por Letra, convida o leitor a percorrer uma jornada de reflexão e crescimento, mostrando que pequenas mudanças diárias podem transformar a forma de pensar, agir e viver. Seu propósito é caminhar ao lado das pessoas, incentivando-as a crescer, servir e construir um legado que faça a diferença`,
@@ -15,7 +15,7 @@ const booksData = {
   "a-cacada": {
     title: "A Caçada",
     author: "Autor a definir",
-    cover: "assets/biblioteca/capas/aCaçada.jpg",
+    cover: "assets/biblioteca/capas/aCaçada.png",
     rating: 4.5,
     description:
       "Em todo o Brasil, milhões de pessoas se afastaram das igrejas, carregando consigo histórias, feridas, dúvidas e, muitas vezes, uma fé silenciosa que ainda permanece viva...",
@@ -31,7 +31,7 @@ const booksData = {
   "desvendando-a-excelencia": {
     title: "Desvendando a Excelência",
     author: "Autor a definir",
-    cover: "assets/biblioteca/capas/desvendandoAExcelencia.jpg",
+    cover: "assets/biblioteca/capas/desvendandoAExcelencia.png",
     rating: 4.5,
     description:
       "Construir conexões verdadeiras pode transformar caminhos, abrir portas e criar oportunidades que muitas vezes o conhecimento sozinho não consegue alcançar...",
@@ -46,7 +46,7 @@ const booksData = {
   "presos-e-injusticados": {
     title: "Presos e Injustiçados",
     author: "Autor a definir",
-    cover: "assets/biblioteca/capas/presosEInjusticados.jpg",
+    cover: "assets/biblioteca/capas/presosEInjusticados.png",
     rating: 4.5,
     description:
       "Por trás das grades, existem histórias que muitas vezes nunca são ouvidas. Histórias de dor, abandono, erros, arrependimentos e, em muitos casos, de injustiça...",
@@ -61,7 +61,7 @@ const booksData = {
   proverbios: {
     title: "Provérbios",
     author: "",
-    cover: "assets/biblioteca/capas/Proverbios.jpeg",
+    cover: "assets/biblioteca/capas/Proverbios.png",
     rating: 4.5,
     description:
       "O livro de Provérbios é uma das maiores fontes de sabedoria já registradas, oferecendo ensinamentos valiosos para quem deseja viver com discernimento, equilíbrio e propósito. ",
