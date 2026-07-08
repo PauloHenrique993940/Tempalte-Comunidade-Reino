@@ -1,28 +1,46 @@
 const site = {
   nav: [
-    ['index.html', 'Início'],
-    ['quem-somos.html', 'Quem Somos'],
-    ['projetos.html', 'Projetos'],
-    ['biblioteca.html', 'Biblioteca'],
-    ['podcasts.html', 'Podcasts'],
-    ['voluntariado.html', 'Voluntariado'],
-    ['contato.html', 'Contato']
+    ["index.html", "Início"],
+    ["quem-somos.html", "Quem Somos"],
+    ["projetos.html", "Projetos"],
+    ["biblioteca.html", "Biblioteca"],
+    ["podcasts.html", "Podcasts"],
+    ["voluntariado.html", "Voluntariado"],
+    ["contato.html", "Contato"],
   ],
   footerGroups: {
-    Institucional: [['Quem Somos','quem-somos.html'], ['Projetos','projetos.html'], ['Voluntariado','voluntariado.html'], ['Contato','contato.html']],
-    Conteúdos: [['Biblioteca','biblioteca.html'], ['Podcasts','podcasts.html'], ['FAQ','faq.html'], ['Mapa do Site','sitemap.xml']],
-    Acesso: [['Login','login.html'], ['Cadastro','cadastro.html'], ['Área do candidato','painel-voluntario.html'], ['Perfil','perfil.html']],
-    Legal: [['Privacidade','politica-privacidade.html'], ['Termos','termos.html']]
-  }
+    Institucional: [
+      ["Quem Somos", "quem-somos.html"],
+      ["Projetos", "projetos.html"],
+      ["Voluntariado", "voluntariado.html"],
+      ["Contato", "contato.html"],
+    ],
+    Conteúdos: [
+      ["Biblioteca", "biblioteca.html"],
+      ["Podcasts", "podcasts.html"],
+      ["FAQ", "faq.html"],
+      ["Mapa do Site", "sitemap.xml"],
+    ],
+    Acesso: [
+      ["Login", "login.html"],
+      ["Cadastro", "cadastro.html"],
+      ["Área do candidato", "painel-voluntario.html"],
+      ["Perfil", "perfil.html"],
+    ],
+    Legal: [
+      ["Privacidade", "politica-privacidade.html"],
+      ["Termos", "termos.html"],
+    ],
+  },
 };
 
 function currentFile() {
-  const file = location.pathname.split('/').pop() || 'index.html';
-  return file === '' ? 'index.html' : file;
+  const file = location.pathname.split("/").pop() || "index.html";
+  return file === "" ? "index.html" : file;
 }
 
-function icon(name, label = '') {
-  return `<i data-lucide="${name}" aria-hidden="${label ? 'false' : 'true'}"></i>${label ? `<span>${label}</span>` : ''}`;
+function icon(name, label = "") {
+  return `<i data-lucide="${name}" aria-hidden="${label ? "false" : "true"}"></i>${label ? `<span>${label}</span>` : ""}`;
 }
 
 function renderHeader() {
@@ -38,7 +56,7 @@ function renderHeader() {
         </a>
         <nav class="nav" id="siteNav" aria-label="Navegação principal">
           <ul class="nav-list">
-            ${site.nav.map(([href, label]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ''}>${label}</a></li>`).join('')}
+            ${site.nav.map(([href, label]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ""}>${label}</a></li>`).join("")}
           </ul>
         </nav>
         <div class="header-actions">
@@ -52,8 +70,12 @@ function renderHeader() {
 function renderFooter() {
   const target = document.querySelector('[data-component="footer"]');
   if (!target) return;
-  const groups = Object.entries(site.footerGroups).map(([title, links]) => `
-    <div><p class="footer-title">${title}</p><ul class="footer-links">${links.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join('')}</ul></div>`).join('');
+  const groups = Object.entries(site.footerGroups)
+    .map(
+      ([title, links]) => `
+    <div><p class="footer-title">${title}</p><ul class="footer-links">${links.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join("")}</ul></div>`,
+    )
+    .join("");
   target.innerHTML = `
     <footer class="site-footer" role="contentinfo">
       <div class="container">
@@ -62,10 +84,10 @@ function renderFooter() {
             <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" /></a>
             <p class="footer-about">Portal institucional de informação, cuidado, biblioteca, projetos, voluntariado e comunicação da Comunidade do Reino.</p>
             <div class="socials footer-socials" aria-label="Redes sociais">
-              <a href="https://instagram.com" aria-label="Instagram">${icon('instagram')}</a>
-              <a href="https://facebook.com" aria-label="Facebook">${icon('facebook')}</a>
-              <a href="https://youtube.com" aria-label="YouTube">${icon('youtube')}</a>
-              <a href="https://spotify.com" aria-label="Spotify">${icon('music')}</a>
+              <a href="https://instagram.com" aria-label="Instagram">${icon("instagram")}</a>
+              <a href="https://facebook.com" aria-label="Facebook">${icon("facebook")}</a>
+              <a href="https://youtube.com" aria-label="YouTube">${icon("youtube")}</a>
+              <a href="https://spotify.com" aria-label="Spotify">${icon("music")}</a>
             </div>
           </div>${groups}
         </div>
@@ -75,50 +97,62 @@ function renderFooter() {
 }
 
 function setupMenu() {
-  const button = document.querySelector('[data-menu-toggle]');
-  const nav = document.getElementById('siteNav');
+  const button = document.querySelector("[data-menu-toggle]");
+  const nav = document.getElementById("siteNav");
   if (!button || !nav) return;
-  button.addEventListener('click', () => {
-    const isOpen = nav.classList.toggle('is-open');
-    button.classList.toggle('is-open', isOpen);
-    button.setAttribute('aria-expanded', String(isOpen));
-    document.body.classList.toggle('is-locked', isOpen);
+  button.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    button.classList.toggle("is-open", isOpen);
+    button.setAttribute("aria-expanded", String(isOpen));
+    document.body.classList.toggle("is-locked", isOpen);
   });
-  nav.addEventListener('click', event => {
-    if (!event.target.closest('a')) return;
-    nav.classList.remove('is-open');
-    button.classList.remove('is-open');
-    button.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('is-locked');
+  nav.addEventListener("click", (event) => {
+    if (!event.target.closest("a")) return;
+    nav.classList.remove("is-open");
+    button.classList.remove("is-open");
+    button.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("is-locked");
   });
 }
 
 function setupReveal() {
-  const items = document.querySelectorAll('.reveal, .card');
-  if (!('IntersectionObserver' in window)) return items.forEach(item => item.classList.add('is-visible'));
-  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
-  }), { threshold: 0.12 });
-  items.forEach(item => observer.observe(item));
+  const items = document.querySelectorAll(".reveal, .card");
+  if (!("IntersectionObserver" in window))
+    return items.forEach((item) => item.classList.add("is-visible"));
+  const observer = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }),
+    { threshold: 0.12 },
+  );
+  items.forEach((item) => observer.observe(item));
 }
 
 function setupFilters() {
-  document.querySelectorAll('[data-filter-group]').forEach(group => {
-    const buttons = group.querySelectorAll('[data-filter]');
-    const scope = document.querySelector(group.dataset.filterGroup || 'body');
-    buttons.forEach(button => button.addEventListener('click', () => {
-      buttons.forEach(item => item.classList.toggle('is-active', item === button));
-      const value = button.dataset.filter;
-      scope?.querySelectorAll('[data-category]').forEach(card => {
-        card.hidden = value !== 'todos' && card.dataset.category !== value;
-      });
-    }));
+  document.querySelectorAll("[data-filter-group]").forEach((group) => {
+    const buttons = group.querySelectorAll("[data-filter]");
+    const scope = document.querySelector(group.dataset.filterGroup || "body");
+    buttons.forEach((button) =>
+      button.addEventListener("click", () => {
+        buttons.forEach((item) =>
+          item.classList.toggle("is-active", item === button),
+        );
+        const value = button.dataset.filter;
+        scope?.querySelectorAll("[data-category]").forEach((card) => {
+          card.hidden = value !== "todos" && card.dataset.category !== value;
+        });
+      }),
+    );
   });
-  document.querySelectorAll('[data-search]').forEach(input => {
-    const scope = document.querySelector(input.dataset.search || 'body');
-    input.addEventListener('input', () => {
+  document.querySelectorAll("[data-search]").forEach((input) => {
+    const scope = document.querySelector(input.dataset.search || "body");
+    input.addEventListener("input", () => {
       const term = input.value.toLowerCase().trim();
-      scope?.querySelectorAll('[data-search-item]').forEach(item => {
+      scope?.querySelectorAll("[data-search-item]").forEach((item) => {
         item.hidden = term && !item.textContent.toLowerCase().includes(term);
       });
     });
@@ -126,52 +160,62 @@ function setupFilters() {
 }
 
 function setupForms() {
-  document.querySelectorAll('form[data-demo-form]').forEach(form => {
-    form.addEventListener('submit', event => {
+  document.querySelectorAll("form[data-demo-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
       event.preventDefault();
-      toast('Recebemos suas informações. Este fluxo está pronto para conectar ao backend.');
+      toast(
+        "Recebemos suas informações. Este fluxo está pronto para conectar ao backend.",
+      );
       form.reset();
     });
   });
 }
 
 function setupBackToTop() {
-  const button = document.createElement('button');
-  button.className = 'back-to-top';
-  button.type = 'button';
-  button.setAttribute('aria-label', 'Voltar ao topo');
-  button.innerHTML = icon('arrow-up');
+  const button = document.createElement("button");
+  button.className = "back-to-top";
+  button.type = "button";
+  button.setAttribute("aria-label", "Voltar ao topo");
+  button.innerHTML = icon("arrow-up");
   document.body.appendChild(button);
-  button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  window.addEventListener('scroll', () => button.classList.toggle('is-visible', scrollY > 520), { passive: true });
+  button.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: "smooth" }),
+  );
+  window.addEventListener(
+    "scroll",
+    () => button.classList.toggle("is-visible", scrollY > 520),
+    { passive: true },
+  );
 }
 
 function toast(message) {
-  let region = document.querySelector('.toast');
+  let region = document.querySelector(".toast");
   if (!region) {
-    region = document.createElement('div');
-    region.className = 'toast';
-    region.setAttribute('aria-live', 'polite');
+    region = document.createElement("div");
+    region.className = "toast";
+    region.setAttribute("aria-live", "polite");
     document.body.appendChild(region);
   }
-  const item = document.createElement('div');
-  item.className = 'toast-item';
+  const item = document.createElement("div");
+  item.className = "toast-item";
   item.textContent = message;
   region.appendChild(item);
   setTimeout(() => item.remove(), 4200);
 }
 
 function setupNewsletter() {
-  document.querySelectorAll('[data-newsletter]').forEach(form => {
-    form.addEventListener('submit', event => {
+  document.querySelectorAll("[data-newsletter]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
       event.preventDefault();
-      toast('Inscrição confirmada. Em produção, este contato será salvo no CRM.');
+      toast(
+        "Inscrição confirmada. Em produção, este contato será salvo no CRM.",
+      );
       form.reset();
     });
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   renderHeader();
   renderFooter();
   setupMenu();
@@ -187,61 +231,115 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupBookModal() {
-  const modal = document.getElementById('bookModal');
+  const modal = document.getElementById("bookModal");
   if (!modal) return;
+  //array de informações
 
-  const openButtons = Array.from(document.querySelectorAll('[data-open-book]'));
-  const closeButtons = Array.from(modal.querySelectorAll('[data-close-modal]'));
+  let currentBook = null;
+  //refs aos livros
+  const titleEl = modal.querySelector("[data-book-title]");
+  const authorEl = modal.querySelector(".detail-author");
+  const coverImg = modal.querySelector(".detail-cover img");
+  const descEl = modal.querySelector("[data-book-description]");
+  const extraEl = modal.querySelector("[data-book-extra]");
+  const testimonialBox = modal.querySelector("[data-book-testimonial]");
+  const testimonialButton = modal.querySelector("[data-toggle-testimonial]");
+  const fullTextEl = modal.querySelector("[data-book-fulltext]");
+  const testimonialTextEl = modal.querySelector("[data-book-testimonial-text]");
+  const testimonialAuthorEl = modal.querySelector(
+    "[data-book-testimonial-author]",
+  );
+  const moreButton = modal.querySelector("[data-toggle-description]");
+  const ratingValueEl = modal.querySelector(".detail-rating-value");
+  const pdfModalTitleEl = document.getElementById("pdfModalTitle");
+
+  const populateModal = (book) => {
+    currentBook = book;
+    if (titleEl) titleEl.textContent = book.title;
+    if (authorEl) authorEl.textContent = book.author;
+    if (coverImg) {
+      coverImg.src = book.cover;
+      coverImg.alt = `Capa de ${book.title}`;
+    }
+    if (descEl) descEl.textContent = book.description;
+    if (ratingValueEl) ratingValueEl.textContent = book.rating;
+    if (pdfModalTitleEl) pdfModalTitleEl.textContent = book.title;
+    if (extraEl) extraEl.hidden = true;
+    if (testimonialBox) testimonialBox.hidden = true;
+    if (moreButton) moreButton.textContent = "Ver mais";
+    if (testimonialButton) testimonialButton.textContent = "Ver depoimento";
+    if (fullTextEl) fullTextEl.textContent = book.fullDescription;
+    if (testimonialTextEl)
+      testimonialTextEl.textContent = book.testimonial.quote;
+    if (testimonialAuthorEl)
+      testimonialAuthorEl.textContent = book.testimonial.author;
+  };
+
+  const openButtons = Array.from(document.querySelectorAll("[data-open-book]"));
+  const closeButtons = Array.from(modal.querySelectorAll("[data-close-modal]"));
   const overlay = modal;
-  const readButton = modal.querySelector('[data-read-book]');
-  const previewButton = modal.querySelector('[data-preview-book]');
-  const pdfModal = document.getElementById('pdfModal');
-  const pdfCloseButtons = pdfModal ? Array.from(pdfModal.querySelectorAll('[data-close-pdf-modal]')) : [];
+  const readButton = modal.querySelector("[data-read-book]");
+  const previewButton = modal.querySelector("[data-preview-book]");
+  const pdfModal = document.getElementById("pdfModal");
+  const pdfCloseButtons = pdfModal
+    ? Array.from(pdfModal.querySelectorAll("[data-close-pdf-modal]"))
+    : [];
   const pdfOverlay = pdfModal;
-  const pdfUrl = 'assets/biblioteca/EbookEspanhol.pdf';
 
   const openModal = () => {
-    modal.removeAttribute('hidden');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('is-locked');
+    modal.removeAttribute("hidden");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("is-locked");
   };
 
   const closeModal = () => {
-    modal.setAttribute('hidden', '');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('is-locked');
+    modal.setAttribute("hidden", "");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("is-locked");
   };
 
   let pdfDoc = null;
   let currentPage = 1;
   let pageCount = 0;
   let currentScale = 1.0;
-  const pdfViewer = pdfModal ? pdfModal.querySelector('.pdf-viewer') : null;
-  const pageNumberLabel = pdfModal ? pdfModal.querySelector('[data-pdf-page-number]') : null;
-  const pageCountLabel = pdfModal ? pdfModal.querySelector('[data-pdf-page-count]') : null;
-  const prevPageButton = pdfModal ? pdfModal.querySelector('[data-prev-pdf-page]') : null;
-  const nextPageButton = pdfModal ? pdfModal.querySelector('[data-next-pdf-page]') : null;
-  const zoomInButton = pdfModal ? pdfModal.querySelector('[data-pdf-zoom-in]') : null;
-  const zoomOutButton = pdfModal ? pdfModal.querySelector('[data-pdf-zoom-out]') : null;
+  const pdfViewer = pdfModal ? pdfModal.querySelector(".pdf-viewer") : null;
+  const pageNumberLabel = pdfModal
+    ? pdfModal.querySelector("[data-pdf-page-number]")
+    : null;
+  const pageCountLabel = pdfModal
+    ? pdfModal.querySelector("[data-pdf-page-count]")
+    : null;
+  const prevPageButton = pdfModal
+    ? pdfModal.querySelector("[data-prev-pdf-page]")
+    : null;
+  const nextPageButton = pdfModal
+    ? pdfModal.querySelector("[data-next-pdf-page]")
+    : null;
+  const zoomInButton = pdfModal
+    ? pdfModal.querySelector("[data-pdf-zoom-in]")
+    : null;
+  const zoomOutButton = pdfModal
+    ? pdfModal.querySelector("[data-pdf-zoom-out]")
+    : null;
   let wheelScrollTimeout = 0;
   let touchStartY = null;
 
-  const renderPage = pageNum => {
+  const renderPage = (pageNum) => {
     if (!pdfViewer || !pdfDoc) return;
-    pdfDoc.getPage(pageNum).then(page => {
+    pdfDoc.getPage(pageNum).then((page) => {
       const containerWidth = pdfViewer.clientWidth - 24;
       const viewport = page.getViewport({ scale: currentScale });
       const scale = Math.min(currentScale, containerWidth / viewport.width);
       const adjustedViewport = page.getViewport({ scale });
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
       canvas.height = adjustedViewport.height;
       canvas.width = adjustedViewport.width;
       const renderContext = {
         canvasContext: context,
-        viewport: adjustedViewport
+        viewport: adjustedViewport,
       };
-      pdfViewer.innerHTML = '';
+      pdfViewer.innerHTML = "";
       pdfViewer.appendChild(canvas);
       page.render(renderContext);
       if (pageNumberLabel) pageNumberLabel.textContent = pageNum;
@@ -249,92 +347,128 @@ function setupBookModal() {
   };
 
   const loadPdf = () => {
-    if (!pdfModal || !pdfViewer) return;
+    if (!pdfModal || !pdfViewer || !currentBook) return;
     if (pdfDoc) {
       renderPage(currentPage);
       return;
     }
     if (!window.pdfjsLib) {
-      console.error('PDF.js não encontrado. Verifique se o script pdf.min.js foi carregado.');
+      console.error(
+        "PDF.js não encontrado. Verifique se o script pdf.min.js foi carregado.",
+      );
       if (pdfViewer) {
-        pdfViewer.innerHTML = '<div class="pdf-error">Leitor indisponível. O visualizador de PDF não foi carregado.</div>';
+        pdfViewer.innerHTML =
+          '<div class="pdf-error">Leitor indisponível. O visualizador de PDF não foi carregado.</div>';
       }
       return;
     }
 
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js';
-    window.pdfjsLib.getDocument(pdfUrl).promise.then(doc => {
-      pdfDoc = doc;
-      pageCount = doc.numPages;
-      if (pageCountLabel) pageCountLabel.textContent = pageCount;
-      currentPage = 1;
-      renderPage(currentPage);
-    }).catch(error => {
-      console.error('PDF.js erro ao carregar:', error);
-      if (pdfViewer) {
-        pdfViewer.innerHTML = '<div class="pdf-error">Não foi possível carregar o PDF. Verifique o caminho ou o arquivo.</div>';
-      }
-    });
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js";
+    window.pdfjsLib
+      .getDocument(pdfUrl)
+      .promise.then((doc) => {
+        pdfDoc = doc;
+        pageCount = doc.numPages;
+        if (pageCountLabel) pageCountLabel.textContent = pageCount;
+        currentPage = 1;
+        renderPage(currentPage);
+      })
+      .catch((error) => {
+        console.error("PDF.js erro ao carregar:", error);
+        if (pdfViewer) {
+          pdfViewer.innerHTML =
+            '<div class="pdf-error">Não foi possível carregar o PDF. Verifique o caminho ou o arquivo.</div>';
+        }
+      });
   };
 
   const openPdfModal = () => {
     if (!pdfModal) return;
-    pdfModal.removeAttribute('hidden');
-    pdfModal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('is-locked');
+    pdfModal.removeAttribute("hidden");
+    pdfModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("is-locked");
     loadPdf();
   };
 
   const closePdfModal = () => {
     if (!pdfModal) return;
-    pdfModal.setAttribute('hidden', '');
-    pdfModal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('is-locked');
-    if (pdfViewer) pdfViewer.innerHTML = '';
+    pdfModal.setAttribute("hidden", "");
+    pdfModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("is-locked");
+    if (pdfViewer) pdfViewer.innerHTML = "";
     pdfDoc = null;
   };
 
-  openButtons.forEach(button => {
-    button.addEventListener('click', event => {
+  openButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
       event.preventDefault();
+      const bookId = button.dataset.openBook;
+      const book = booksData[bookId];
+      if (!book) {
+        console.warn("Livro não encontrado para o id:", bookId);
+        return;
+      }
+      populateModal(book);
       openModal();
     });
   });
 
-  closeButtons.forEach(button => button.addEventListener('click', closeModal));
-  overlay.addEventListener('click', event => {
+  closeButtons.forEach((button) =>
+    button.addEventListener("click", closeModal),
+  );
+  overlay.addEventListener("click", (event) => {
     if (event.target === overlay) closeModal();
   });
 
   if (pdfModal) {
-    pdfCloseButtons.forEach(button => button.addEventListener('click', closePdfModal));
-    pdfOverlay.addEventListener('click', event => {
+    pdfCloseButtons.forEach((button) =>
+      button.addEventListener("click", closePdfModal),
+    );
+    pdfOverlay.addEventListener("click", (event) => {
       if (event.target === pdfOverlay) closePdfModal();
     });
   }
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
-      if (modal.getAttribute('aria-hidden') === 'false') closeModal();
-      if (pdfModal && pdfModal.getAttribute('aria-hidden') === 'false') closePdfModal();
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      if (modal.getAttribute("aria-hidden") === "false") closeModal();
+      if (pdfModal && pdfModal.getAttribute("aria-hidden") === "false")
+        closePdfModal();
     }
   });
 
   if (previewButton && pdfModal) {
-    previewButton.addEventListener('click', () => {
+    previewButton.addEventListener("click", () => {
       closeModal();
       openPdfModal();
     });
   }
+  if (moreButton && extraEl) {
+    moreButton.addEventListener("click", () => {
+      const isHidden = extraEl.hidden;
+      extraEl.hidden = !isHidden;
+      moreButton.textContent = isHidden ? "Ver menos" : "Ver mais";
+    });
+  }
+  if (testimonialButton && testimonialBox) {
+    testimonialButton.addEventListener("click", () => {
+      const isHidden = testimonialBox.hidden;
+      testimonialBox.hidden = !isHidden;
 
+      testimonialButton.textContent = isHidden
+        ? "Ocultar depoimento"
+        : "Ver depoimento";
+    });
+  }
   if (readButton && pdfModal) {
-    readButton.addEventListener('click', () => {
+    readButton.addEventListener("click", () => {
       closeModal();
       openPdfModal();
     });
   }
 
   if (prevPageButton) {
-    prevPageButton.addEventListener('click', () => {
+    prevPageButton.addEventListener("click", () => {
       if (currentPage <= 1) return;
       currentPage -= 1;
       renderPage(currentPage);
@@ -342,7 +476,7 @@ function setupBookModal() {
   }
 
   if (nextPageButton) {
-    nextPageButton.addEventListener('click', () => {
+    nextPageButton.addEventListener("click", () => {
       if (!pdfDoc || currentPage >= pageCount) return;
       currentPage += 1;
       renderPage(currentPage);
@@ -350,39 +484,43 @@ function setupBookModal() {
   }
 
   if (zoomInButton) {
-    zoomInButton.addEventListener('click', () => {
+    zoomInButton.addEventListener("click", () => {
       currentScale = Math.min(currentScale + 0.2, 3.0);
       renderPage(currentPage);
     });
   }
 
   if (zoomOutButton) {
-    zoomOutButton.addEventListener('click', () => {
+    zoomOutButton.addEventListener("click", () => {
       currentScale = Math.max(currentScale - 0.2, 0.6);
       renderPage(currentPage);
     });
   }
 
   if (pdfViewer) {
-    pdfViewer.addEventListener('wheel', event => {
-      event.preventDefault();
-      clearTimeout(wheelScrollTimeout);
-      wheelScrollTimeout = window.setTimeout(() => {
-        if (event.deltaY > 0 && currentPage < pageCount) {
-          currentPage += 1;
-          renderPage(currentPage);
-        } else if (event.deltaY < 0 && currentPage > 1) {
-          currentPage -= 1;
-          renderPage(currentPage);
-        }
-      }, 50);
-    }, { passive: false });
+    pdfViewer.addEventListener(
+      "wheel",
+      (event) => {
+        event.preventDefault();
+        clearTimeout(wheelScrollTimeout);
+        wheelScrollTimeout = window.setTimeout(() => {
+          if (event.deltaY > 0 && currentPage < pageCount) {
+            currentPage += 1;
+            renderPage(currentPage);
+          } else if (event.deltaY < 0 && currentPage > 1) {
+            currentPage -= 1;
+            renderPage(currentPage);
+          }
+        }, 50);
+      },
+      { passive: false },
+    );
 
-    pdfViewer.addEventListener('touchstart', event => {
+    pdfViewer.addEventListener("touchstart", (event) => {
       touchStartY = event.touches[0]?.clientY ?? null;
     });
 
-    pdfViewer.addEventListener('touchend', event => {
+    pdfViewer.addEventListener("touchend", (event) => {
       const touchEndY = event.changedTouches[0]?.clientY ?? null;
       if (touchStartY === null || touchEndY === null) return;
       const delta = touchStartY - touchEndY;
@@ -400,27 +538,30 @@ function setupBookModal() {
 }
 
 function setupProjectCarousel() {
-  const carousel = document.querySelector('[data-carousel]');
+  const carousel = document.querySelector("[data-carousel]");
   if (!carousel) return;
-  const track = carousel.querySelector('.project-carousel__track');
-  const dotsContainer = carousel.querySelector('.project-carousel__dots');
+  const track = carousel.querySelector(".project-carousel__track");
+  const dotsContainer = carousel.querySelector(".project-carousel__dots");
   const cards = Array.from(track.children);
   let isDragging = false;
   let startX = 0;
   let startTrackX = 0;
   let trackX = 0;
   let maxScroll = track.scrollWidth - carousel.clientWidth;
-  let cardWidth = cards[0]?.getBoundingClientRect().width || carousel.clientWidth;
+  let cardWidth =
+    cards[0]?.getBoundingClientRect().width || carousel.clientWidth;
   let activeIndex = 0;
 
-  const updatePosition = x => {
+  const updatePosition = (x) => {
     trackX = Math.max(0, Math.min(x, maxScroll));
     track.style.transform = `translateX(${-trackX}px)`;
   };
 
-  const snapToCard = index => {
+  const snapToCard = (index) => {
     activeIndex = Math.max(0, Math.min(index, cards.length - 1));
-    const targetX = cards[activeIndex].offsetLeft - (carousel.clientWidth - cards[activeIndex].clientWidth) / 2;
+    const targetX =
+      cards[activeIndex].offsetLeft -
+      (carousel.clientWidth - cards[activeIndex].clientWidth) / 2;
     updatePosition(targetX);
     highlightDot(activeIndex);
   };
@@ -433,35 +574,37 @@ function setupProjectCarousel() {
 
   const createDots = () => {
     if (!dotsContainer) return;
-    dotsContainer.innerHTML = '';
+    dotsContainer.innerHTML = "";
     cards.forEach((_, index) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'project-carousel__dot';
-      button.addEventListener('click', () => snapToCard(index));
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "project-carousel__dot";
+      button.addEventListener("click", () => snapToCard(index));
       dotsContainer.appendChild(button);
     });
     highlightDot(activeIndex);
   };
 
-  const highlightDot = index => {
+  const highlightDot = (index) => {
     if (!dotsContainer) return;
-    dotsContainer.querySelectorAll('.project-carousel__dot').forEach((dot, dotIndex) => {
-      dot.classList.toggle('is-active', dotIndex === index);
-    });
+    dotsContainer
+      .querySelectorAll(".project-carousel__dot")
+      .forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === index);
+      });
   };
 
   createDots();
 
-  carousel.addEventListener('pointerdown', event => {
+  carousel.addEventListener("pointerdown", (event) => {
     isDragging = true;
     startX = event.clientX;
     startTrackX = trackX;
     carousel.setPointerCapture(event.pointerId);
-    carousel.classList.add('is-dragging');
+    carousel.classList.add("is-dragging");
   });
 
-  carousel.addEventListener('pointermove', event => {
+  carousel.addEventListener("pointermove", (event) => {
     if (!isDragging) return;
     const delta = startX - event.clientX;
     updatePosition(startTrackX + delta);
@@ -470,47 +613,48 @@ function setupProjectCarousel() {
   const stopDrag = () => {
     if (!isDragging) return;
     isDragging = false;
-    carousel.classList.remove('is-dragging');
+    carousel.classList.remove("is-dragging");
     const index = Math.round(trackX / cardWidth);
     snapToCard(index);
   };
 
-  carousel.addEventListener('pointerup', stopDrag);
-  carousel.addEventListener('pointercancel', stopDrag);
-  carousel.addEventListener('pointerleave', stopDrag);
+  carousel.addEventListener("pointerup", stopDrag);
+  carousel.addEventListener("pointercancel", stopDrag);
+  carousel.addEventListener("pointerleave", stopDrag);
 
-  window.addEventListener('resize', refreshDimensions);
+  window.addEventListener("resize", refreshDimensions);
   const resizeObserver = new ResizeObserver(refreshDimensions);
   resizeObserver.observe(carousel);
   resizeObserver.observe(track);
 }
 
 function setupVideoPlayButtons() {
-  document.querySelectorAll('.feature-panel--video .media-card').forEach(card => {
-    const video = card.querySelector('video');
-    if (!video) return;
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'video-play-overlay';
-    button.setAttribute('aria-label', 'Tocar vídeo');
-    card.appendChild(button);
+  document
+    .querySelectorAll(".feature-panel--video .media-card")
+    .forEach((card) => {
+      const video = card.querySelector("video");
+      if (!video) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "video-play-overlay";
+      button.setAttribute("aria-label", "Tocar vídeo");
+      card.appendChild(button);
 
-    const updateOverlay = () => {
-      button.classList.toggle('hidden', !video.paused && !video.ended);
-    };
+      const updateOverlay = () => {
+        button.classList.toggle("hidden", !video.paused && !video.ended);
+      };
 
-    button.addEventListener('click', () => {
-      if (video.paused || video.ended) {
-        video.play();
-      } else {
-        video.pause();
-      }
+      button.addEventListener("click", () => {
+        if (video.paused || video.ended) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+
+      video.addEventListener("play", updateOverlay);
+      video.addEventListener("pause", updateOverlay);
+      video.addEventListener("ended", updateOverlay);
+      updateOverlay();
     });
-
-    video.addEventListener('play', updateOverlay);
-    video.addEventListener('pause', updateOverlay);
-    video.addEventListener('ended', updateOverlay);
-    updateOverlay();
-  });
 }
-
