@@ -698,6 +698,15 @@ p {
   height: 56px;
 }
 
+.button-cards {
+  align-items: center;
+}
+
+.button-cards .btn {
+  flex: 0 1 auto;
+  min-width: 140px;
+}
+
 .grid {
   display: grid;
   gap: 30px;
@@ -1905,7 +1914,7 @@ textarea {
 }
 
 .project-callout::before {
-  content: "“";
+  content: "\201C";
   position: absolute;
   top: 16px;
   left: 24px;
