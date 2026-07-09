@@ -328,13 +328,19 @@ function setupBookModal() {
     if (!pdfViewer || !pdfDoc) return;
     pdfDoc.getPage(pageNum).then((page) => {
       const containerWidth = pdfViewer.clientWidth - 24;
-      const viewport = page.getViewport({ scale: currentScale });
-      const scale = Math.min(currentScale, containerWidth / viewport.width);
+      const containerHeight = pdfViewer.clientHeight - 24;
+      const viewport = page.getViewport({ scale: 1 });
+      const scaleX = containerWidth / viewport.width;
+      const scaleY = containerHeight / viewport.height;
+      const fitScale = Math.min(scaleX, scaleY);
+      const scale = fitScale * currentScale;
       const adjustedViewport = page.getViewport({ scale });
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
       canvas.height = adjustedViewport.height;
       canvas.width = adjustedViewport.width;
+      canvas.style.width = adjustedViewport.width + "px";
+      canvas.style.height = adjustedViewport.height + "px";
       const renderContext = {
         canvasContext: context,
         viewport: adjustedViewport,
@@ -349,6 +355,7 @@ function setupBookModal() {
   const loadPdf = () => {
     if (!pdfModal || !pdfViewer || !currentBook) return;
     if (pdfDoc) {
+      currentScale = 1;
       renderPage(currentPage);
       return;
     }
@@ -362,7 +369,7 @@ function setupBookModal() {
       }
       return;
     }
-
+    const pdfUrl = "assets/biblioteca/EbookEspanhol.pdf";
     window.pdfjsLib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js";
     window.pdfjsLib
@@ -485,14 +492,14 @@ function setupBookModal() {
 
   if (zoomInButton) {
     zoomInButton.addEventListener("click", () => {
-      currentScale = Math.min(currentScale + 0.2, 3.0);
+      currentScale = Math.min(currentScale + 0.2, 3);
       renderPage(currentPage);
     });
   }
 
   if (zoomOutButton) {
     zoomOutButton.addEventListener("click", () => {
-      currentScale = Math.max(currentScale - 0.2, 0.6);
+      currentScale = Math.max(currentScale - 0.2, 0.5);
       renderPage(currentPage);
     });
   }

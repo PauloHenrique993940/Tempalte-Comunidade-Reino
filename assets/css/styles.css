@@ -1253,10 +1253,10 @@ i[data-lucide] {
   overflow: hidden;
 }
 
-.pdf-reader {
-  display: grid;
-  gap: 20px;
-  max-height: calc(100vh - 180px);
+.pdf-viewer {
+  height: calc(100vh - 220px);
+  max-height: 850px;
+  min-height: 350px;
 }
 
 .pdf-reader-header {
@@ -1280,22 +1280,26 @@ i[data-lucide] {
 
 .pdf-viewer {
   width: 100%;
-  min-height: 560px;
-  max-height: calc(100vh - 260px);
+  height: calc(100vh - 280px);
+  min-height: 320px;
+  max-height: 650px;
   border-radius: var(--radius-xl);
-  overflow: hidden;
+  overflow: auto;
   background: #f9fafb;
   border: 1px solid rgba(17, 43, 102, 0.14);
-  display: flex;
+  display: block;
+  text-align: center;
   align-items: center;
   justify-content: center;
   padding: 24px;
 }
 
 .pdf-viewer canvas {
-  width: 100%;
-  max-width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 100%;
+
   display: block;
   background: #fff;
 }
