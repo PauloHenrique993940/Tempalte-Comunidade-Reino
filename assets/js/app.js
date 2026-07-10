@@ -84,10 +84,13 @@ function renderFooter() {
             <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" /></a>
             <p class="footer-about">Portal institucional de informação, cuidado, biblioteca, projetos, voluntariado e comunicação da Comunidade do Reino.</p>
             <div class="socials footer-socials" aria-label="Redes sociais">
-              <a href="https://instagram.com" aria-label="Instagram">${icon("instagram")}</a>
-              <a href="https://facebook.com" aria-label="Facebook">${icon("facebook")}</a>
-              <a href="https://youtube.com" aria-label="YouTube">${icon("youtube")}</a>
-              <a href="https://spotify.com" aria-label="Spotify">${icon("music")}</a>
+              <a href="https://instagram.com/comunidadedoreino001" aria-label="Instagram">
+              <img src="assets/icons/instagram.svg" alt="Instagram"></a>
+              </a>
+              <a href="https://facebook.com" aria-label="Facebook">
+              <img src="assets/icons/facebook.svg" alt="Facebook"></a>
+              <a href="https://youtube.com" aria-label="YouTube"> <img src="assets/icons/youtube.svg" alt="Youtube"></a></a>
+              <a href="https://spotify.com" aria-label="Spotify"> <img src="assets/icons/spotify.svg" alt="Spotify"></a></a>
             </div>
           </div>${groups}
         </div>

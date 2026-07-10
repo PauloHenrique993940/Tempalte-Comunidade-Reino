@@ -1245,30 +1245,28 @@ i[data-lucide] {
     color 220ms ease;
 }
 
-.modal--wide {
-  width: min(100%, 960px);
-  max-width: 960px;
-  background: #fdfaf5;
-  max-height: calc(100vh - 56px);
-  overflow: hidden;
-}
+.modal.modal--wide {
+  width: fit-content;
 
-.pdf-viewer {
-  height: calc(100vh - 220px);
-  max-height: 850px;
-  min-height: 350px;
+  max-width: 95vw;
+
+  max-height: 95vh;
 }
 
 .pdf-reader-header {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  width: fit-content;
+  margin: 0 auto;
+  justify-content: center;
+  padding: 20px 0 16px;
+  align-items: center;
   gap: 18px;
 }
 
 .pdf-controls {
   display: flex;
-  flex-wrap: wrap;
+  overflow: auto;
+  justify-content: center;
   align-items: center;
   gap: 12px;
 }
@@ -1279,29 +1277,24 @@ i[data-lucide] {
 }
 
 .pdf-viewer {
-  width: 100%;
-  height: calc(100vh - 280px);
-  min-height: 320px;
-  max-height: 650px;
-  border-radius: var(--radius-xl);
-  overflow: auto;
-  background: #f9fafb;
-  border: 1px solid rgba(17, 43, 102, 0.14);
-  display: block;
-  text-align: center;
-  align-items: center;
+  display: flex;
   justify-content: center;
-  padding: 24px;
+  align-items: flex-start;
+  width: 100%;
+  height: calc(95vh - 89px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 16px;
+
+  background: #fff;
 }
 
 .pdf-viewer canvas {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-
   display: block;
-  background: #fff;
+  margin: 0 auto;
+
+  max-width: 100%;
+  height: auto;
 }
 
 .pdf-error {
@@ -1587,10 +1580,17 @@ textarea {
 .modal-grid {
   display: grid;
   gap: 24px;
+
   padding: 30px;
   background: rgba(255, 255, 255, 0.96);
 }
+.modal-grid.pdf-reader {
+  display: flex;
+  flex-direction: column;
 
+  padding: 20px;
+  gap: 16px;
+}
 .modal-close {
   position: absolute;
   top: 18px;
@@ -2241,6 +2241,25 @@ textarea {
 
   .timeline-item {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .modal--wide {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-grid.pdf-reader {
+    padding: 12px;
+  }
+
+  .pdf-viewer {
+    height: calc(100vh - 90px);
+  }
+  .pdf-controls {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 
