@@ -326,32 +326,77 @@ function setupBookModal() {
     : null;
   let wheelScrollTimeout = 0;
   let touchStartY = null;
+  let renderToken = 0;
+
+  const isSinglePageView = () =>
+    window.matchMedia("(max-width: 768px)").matches || currentScale > 1.2;
+
+  const getSpreadPages = (pageNum) => {
+    if (isSinglePageView() || pageNum <= 1) return [pageNum];
+    const firstPage = pageNum % 2 === 0 ? pageNum : pageNum - 1;
+    const pages = [firstPage];
+    if (firstPage + 1 <= pageCount) pages.push(firstPage + 1);
+    return pages;
+  };
+
+  const updatePageLabel = (pages) => {
+    if (!pageNumberLabel) return;
+    pageNumberLabel.textContent =
+      pages.length > 1 ? `${pages[0]}-${pages[pages.length - 1]}` : pages[0];
+  };
+
+  const turnSpread = (direction) => {
+    if (!pdfDoc || !pageCount) return;
+    const pages = getSpreadPages(currentPage);
+    if (direction > 0 && pages[pages.length - 1] >= pageCount) return;
+    if (direction < 0 && pages[0] <= 1) return;
+    const nextPage =
+      direction > 0
+        ? Math.min(pages[pages.length - 1] + 1, pageCount)
+        : Math.max(pages[0] - 2, 1);
+    if (nextPage === currentPage) return;
+    currentPage = nextPage;
+    renderPage(currentPage);
+  };
 
   const renderPage = (pageNum) => {
     if (!pdfViewer || !pdfDoc) return;
-    pdfDoc.getPage(pageNum).then((page) => {
-      const containerWidth = pdfViewer.clientWidth - 24;
-      const containerHeight = pdfViewer.clientHeight - 24;
+    const pages = getSpreadPages(pageNum);
+    const activeRender = ++renderToken;
+    Promise.all(pages.map((page) => pdfDoc.getPage(page))).then((pdfPages) => {
+      if (activeRender !== renderToken) return;
+      const containerWidth = pdfViewer.clientWidth - 40;
+      const containerHeight = pdfViewer.clientHeight - 40;
+      const page = pdfPages[0];
       const viewport = page.getViewport({ scale: 1 });
-      const scaleX = containerWidth / viewport.width;
+      const scaleX = containerWidth / (viewport.width * pdfPages.length);
       const scaleY = containerHeight / viewport.height;
       const fitScale = Math.min(scaleX, scaleY);
       const scale = fitScale * currentScale;
-      const adjustedViewport = page.getViewport({ scale });
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-      canvas.height = adjustedViewport.height;
-      canvas.width = adjustedViewport.width;
-      canvas.style.width = adjustedViewport.width + "px";
-      canvas.style.height = adjustedViewport.height + "px";
-      const renderContext = {
-        canvasContext: context,
-        viewport: adjustedViewport,
-      };
+      const spread = document.createElement("div");
+      spread.className = `pdf-book-spread pdf-book-spread--${pdfPages.length}`;
+
       pdfViewer.innerHTML = "";
-      pdfViewer.appendChild(canvas);
-      page.render(renderContext);
-      if (pageNumberLabel) pageNumberLabel.textContent = pageNum;
+      pdfViewer.appendChild(spread);
+      updatePageLabel(pages);
+
+      pdfPages.forEach((page, index) => {
+        const adjustedViewport = page.getViewport({ scale });
+        const pageShell = document.createElement("div");
+        pageShell.className = `pdf-book-page ${index === 0 ? "is-left" : "is-right"}`;
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.height = adjustedViewport.height;
+        canvas.width = adjustedViewport.width;
+        canvas.style.width = adjustedViewport.width + "px";
+        canvas.style.height = adjustedViewport.height + "px";
+        pageShell.appendChild(canvas);
+        spread.appendChild(pageShell);
+        page.render({
+          canvasContext: context,
+          viewport: adjustedViewport,
+        });
+      });
     });
   };
 
@@ -479,17 +524,13 @@ function setupBookModal() {
 
   if (prevPageButton) {
     prevPageButton.addEventListener("click", () => {
-      if (currentPage <= 1) return;
-      currentPage -= 1;
-      renderPage(currentPage);
+      turnSpread(-1);
     });
   }
 
   if (nextPageButton) {
     nextPageButton.addEventListener("click", () => {
-      if (!pdfDoc || currentPage >= pageCount) return;
-      currentPage += 1;
-      renderPage(currentPage);
+      turnSpread(1);
     });
   }
 
@@ -514,13 +555,8 @@ function setupBookModal() {
         event.preventDefault();
         clearTimeout(wheelScrollTimeout);
         wheelScrollTimeout = window.setTimeout(() => {
-          if (event.deltaY > 0 && currentPage < pageCount) {
-            currentPage += 1;
-            renderPage(currentPage);
-          } else if (event.deltaY < 0 && currentPage > 1) {
-            currentPage -= 1;
-            renderPage(currentPage);
-          }
+          if (event.deltaY > 0) turnSpread(1);
+          if (event.deltaY < 0) turnSpread(-1);
         }, 50);
       },
       { passive: false },
@@ -535,13 +571,8 @@ function setupBookModal() {
       if (touchStartY === null || touchEndY === null) return;
       const delta = touchStartY - touchEndY;
       if (Math.abs(delta) < 40) return;
-      if (delta > 0 && currentPage < pageCount) {
-        currentPage += 1;
-        renderPage(currentPage);
-      } else if (delta < 0 && currentPage > 1) {
-        currentPage -= 1;
-        renderPage(currentPage);
-      }
+      if (delta > 0) turnSpread(1);
+      if (delta < 0) turnSpread(-1);
       touchStartY = null;
     });
   }
