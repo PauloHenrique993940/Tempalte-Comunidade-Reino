@@ -746,19 +746,6 @@ p {
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.85);
 }
 
-.hero .btn-outline {
-  color: var(--color-accent);
-  background: rgba(7, 22, 43, 0.18);
-  border-color: rgba(245, 197, 24, 0.86);
-  box-shadow: 0 0 0 1px rgba(245, 197, 24, 0.08) inset;
-}
-
-.hero .btn-outline:hover {
-  color: var(--color-primary-strong);
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
 .button-cards {
   align-items: center;
 }
