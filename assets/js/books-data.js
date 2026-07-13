@@ -2,12 +2,13 @@ const booksData = {
   "espanhol-em-27-dias": {
     title: "Espanhol em 27 dias",
     author: "Gilberto (Luzidio Smith)",
-    cover: "assets/biblioteca/capas/espanholEm27Dias.png",
+    cover: "assets/biblioteca/capas/espanholEm27Dias.jpeg",
     rating: 4.5,
-    description: `Gilberto (Luzidio Smith) acredita que toda pessoa possui um potencial que, muitas vezes, apenas precisa ser despertado. Natural de Barra do Corda (MA), encontrou em sua própria história de vida a inspiração para compartilhar princípios de fé, responsabilidade e desenvolvimento humano...`,
-    fullDescription: `Em 27 Dias – Letra por Letra, convida o leitor a percorrer uma jornada de reflexão e crescimento, mostrando que pequenas mudanças diárias podem transformar a forma de pensar, agir e viver. Seu propósito é caminhar ao lado das pessoas, incentivando-as a crescer, servir e construir um legado que faça a diferença`,
+    description: `Este e-book nasceu do desejo de tornar o aprendizado do espanhol acessível a qualquer pessoa, independentemente da idade, da escolaridade ou das limitações que possa enfrentar...`,
+    fullDescription: ` Durante o desenvolvimento da obra, surgiu um cuidado especial com as pessoas com deficiência visual, levando à criação de um método simples, organizado e baseado em pequenos avanços diários. Em vez de apresentar uma grande quantidade de conteúdo de uma só vez, o livro convida o leitor a aprender uma letra por dia, construindo o conhecimento de forma leve e natural. Mais do que ensinar um novo idioma, esta obra procura fortalecer a confiança, a disciplina e a certeza de que todo aprendizado começa com um único passo. Acreditamos que, quando existe dedicação e perseverança, aprender deixa de ser um desafio e passa a ser uma conquista possível para todos.`,
     testimonial: {
-      quote: "",
+      quote:
+        "Sempre acreditei que o conhecimento deve estar ao alcance de todas as pessoas. Foi com esse pensamento que escrevi este e-book. Meu objetivo nunca foi apenas ensinar espanhol, mas mostrar que qualquer pessoa pode aprender quando encontra um método simples, acolhedor e respeitoso com seu próprio ritmo. Cada página foi preparada para incentivar o leitor a seguir em frente, sem medo de errar e sem a pressão de aprender tudo de uma só vez. Espero que este material desperte em você a confiança para dar o primeiro passo e a perseverança para continuar até o fim. Se este livro ajudar você a descobrir que é capaz de aprender algo novo, então ele já terá cumprido sua missão.",
       author: "Gilberto (Luzidio Smith)",
     },
     pdf: "assets/biblioteca/EbookEspanhol.pdf",
