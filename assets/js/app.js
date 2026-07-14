@@ -258,6 +258,9 @@ function setupBookModal() {
 
   const populateModal = (book) => {
     currentBook = book;
+    pdfDoc = null; //
+    currentPage = 1; //
+    currentScale = 1;
     if (titleEl) titleEl.textContent = book.title;
     if (authorEl) authorEl.textContent = book.author;
     if (coverImg) {
@@ -279,7 +282,9 @@ function setupBookModal() {
   };
 
   const openButtons = Array.from(document.querySelectorAll("[data-open-book]"));
-  const closeButtons = Array.from(modal.querySelectorAll("[data-close-modal]"));
+  const closeButtons = Array.from(
+    modal.querySelectorAll("[data-close-pdf-modal]"),
+  );
   const overlay = modal;
   const readButton = modal.querySelector("[data-read-book]");
   const previewButton = modal.querySelector("[data-preview-book]");
@@ -357,6 +362,10 @@ function setupBookModal() {
     if (nextPage === currentPage) return;
     currentPage = nextPage;
     renderPage(currentPage);
+    if (pdfViewer) {
+      pdfViewer.scrollLeft = 0;
+      pdfViewer.scrollTop = 0;
+    }
   };
 
   const renderPage = (pageNum) => {
@@ -402,6 +411,12 @@ function setupBookModal() {
 
   const loadPdf = () => {
     if (!pdfModal || !pdfViewer || !currentBook) return;
+    const pdfUrl = currentBook.pdf;
+    if (!pdfUrl) {
+      pdfViewer.innerHTML =
+        '<div class="pdf-error">PDF não disponível para este livro.</div>';
+      return;
+    }
     if (pdfDoc) {
       currentScale = 1;
       renderPage(currentPage);
@@ -411,13 +426,10 @@ function setupBookModal() {
       console.error(
         "PDF.js não encontrado. Verifique se o script pdf.min.js foi carregado.",
       );
-      if (pdfViewer) {
-        pdfViewer.innerHTML =
-          '<div class="pdf-error">Leitor indisponível. O visualizador de PDF não foi carregado.</div>';
-      }
+      pdfViewer.innerHTML =
+        '<div class="pdf-error">Leitor indisponível. O visualizador de PDF não foi carregado.</div>';
       return;
     }
-    const pdfUrl = "assets/biblioteca/EbookEspanhol.pdf";
     window.pdfjsLib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.worker.min.js";
     window.pdfjsLib
@@ -431,10 +443,8 @@ function setupBookModal() {
       })
       .catch((error) => {
         console.error("PDF.js erro ao carregar:", error);
-        if (pdfViewer) {
-          pdfViewer.innerHTML =
-            '<div class="pdf-error">Não foi possível carregar o PDF. Verifique o caminho ou o arquivo.</div>';
-        }
+        pdfViewer.innerHTML =
+          '<div class="pdf-error">Não foi possível carregar o PDF. Verifique o caminho ou o arquivo.</div>';
       });
   };
 
@@ -454,7 +464,26 @@ function setupBookModal() {
     if (pdfViewer) pdfViewer.innerHTML = "";
     pdfDoc = null;
   };
+  const updateZoomState = () => {
+    if (!pdfViewer) return;
+    pdfViewer.classList.toggle("is-zoomed", currentScale > 1);
+  };
 
+  if (zoomInButton) {
+    zoomInButton.addEventListener("click", () => {
+      currentScale = Math.min(currentScale + 0.2, 3);
+      updateZoomState();
+      renderPage(currentPage);
+    });
+  }
+
+  if (zoomOutButton) {
+    zoomOutButton.addEventListener("click", () => {
+      currentScale = Math.max(currentScale - 0.2, 0.5);
+      updateZoomState();
+      renderPage(currentPage);
+    });
+  }
   openButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -527,31 +556,16 @@ function setupBookModal() {
       turnSpread(-1);
     });
   }
-
   if (nextPageButton) {
     nextPageButton.addEventListener("click", () => {
       turnSpread(1);
     });
   }
-
-  if (zoomInButton) {
-    zoomInButton.addEventListener("click", () => {
-      currentScale = Math.min(currentScale + 0.2, 3);
-      renderPage(currentPage);
-    });
-  }
-
-  if (zoomOutButton) {
-    zoomOutButton.addEventListener("click", () => {
-      currentScale = Math.max(currentScale - 0.2, 0.5);
-      renderPage(currentPage);
-    });
-  }
-
   if (pdfViewer) {
     pdfViewer.addEventListener(
       "wheel",
       (event) => {
+        if (currentScale > 1) return;
         event.preventDefault();
         clearTimeout(wheelScrollTimeout);
         wheelScrollTimeout = window.setTimeout(() => {
@@ -563,6 +577,7 @@ function setupBookModal() {
     );
 
     pdfViewer.addEventListener("touchstart", (event) => {
+      if (currentScale > 1) return;
       touchStartY = event.touches[0]?.clientY ?? null;
     });
 

@@ -1395,9 +1395,26 @@ i[data-lucide] {
   overflow-x: hidden;
   padding: 18px;
   background:
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.42), transparent 38%),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.42),
+      transparent 38%
+    ),
     linear-gradient(135deg, #eef2f7 0%, #d9e1ec 100%);
   touch-action: none;
+}
+
+/* quando o zoom estiver ativo */
+.pdf-viewer.is-zoomed {
+  overflow: auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  touch-action: pan-x pan-y;
+  cursor: grab;
+}
+
+.pdf-viewer.is-zoomed:active {
+  cursor: grabbing;
 }
 
 .pdf-viewer canvas {
@@ -1412,14 +1429,23 @@ i[data-lucide] {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  max-width: 100%;
-  max-height: 100%;
   border-radius: 12px;
   box-shadow: 0 28px 60px rgba(15, 36, 68, 0.24);
   overflow: hidden;
   background: #f7f3ea;
 }
-
+.pdf-viewer.is-zoomed .pdf-book-spread {
+  flex-shrink: 0;
+}
+.pdf-book-page {
+  background: #fff;
+  box-shadow: inset 0 0 26px rgba(15, 36, 68, 0.08);
+  flex-shrink: 0; /* impede encolher dentro do spread também */
+}
+.pdf-viewer:not(.is-zoomed) .pdf-book-spread {
+  max-width: 100%;
+  max-height: 100%;
+}
 .pdf-book-spread::after {
   content: "";
   position: absolute;
@@ -1753,6 +1779,7 @@ textarea {
   top: 18px;
   right: 18px;
   width: 48px;
+  overflow: visible;
   height: 48px;
   border: none;
   border-radius: 50%;
@@ -2252,8 +2279,12 @@ textarea {
   position: fixed;
   right: 18px;
   bottom: 84px;
+
   width: 44px;
   height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   border: 0;
   background: var(--color-accent);
@@ -2265,6 +2296,11 @@ textarea {
   transition:
     opacity var(--transition),
     transform var(--transition);
+}
+.back-to-top svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .back-to-top.is-visible {

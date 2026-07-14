@@ -11,7 +11,7 @@ const booksData = {
         "Sempre acreditei que o conhecimento deve estar ao alcance de todas as pessoas. Foi com esse pensamento que escrevi este e-book. Meu objetivo nunca foi apenas ensinar espanhol, mas mostrar que qualquer pessoa pode aprender quando encontra um método simples, acolhedor e respeitoso com seu próprio ritmo. Cada página foi preparada para incentivar o leitor a seguir em frente, sem medo de errar e sem a pressão de aprender tudo de uma só vez. Espero que este material desperte em você a confiança para dar o primeiro passo e a perseverança para continuar até o fim. Se este livro ajudar você a descobrir que é capaz de aprender algo novo, então ele já terá cumprido sua missão.",
       author: "Gilberto (Luzidio Smith)",
     },
-    pdf: "assets/biblioteca/EbookEspanhol.pdf",
+    pdf: "assets/biblioteca/pdf/EbookEspanhol.pdf",
   },
   "a-cacada": {
     title: "A Caçada",
@@ -72,6 +72,22 @@ const booksData = {
         "Escrever Provérbios: As 31 Chaves da Vida de Salomão foi uma experiência de profundo aprendizado e reflexão. Ao mergulhar nos ensinamentos de Provérbios, percebi como a verdadeira sabedoria continua sendo uma das maiores riquezas que alguém pode buscar. Este e-book nasceu com o propósito de tornar esses ensinamentos mais próximos da vida diária, ajudando cada leitor a encontrar direção, discernimento e força para enfrentar os desafios com mais clareza e equilíbrio. Minha esperança é que, a cada chave descoberta, você encontre não apenas conhecimento, mas também transformação interior. Que a sabedoria de Salomão inspire suas escolhas, fortaleça sua fé e ilumine seu caminho todos os dias.",
       author: "",
     },
-    ped: "",
+    pdf: "assets/biblioteca/pdf/Proverbios.pdf",
+  },
+  "O-poder-dos-3-minutos": {
+    title: "O poder dos 3 minutos",
+    author: "",
+    cover: "assets/biblioteca/capas/oPoderDos3Minutos.jpg",
+    rating: 4.5,
+    description:
+      "3 minutos por dia. Todos os dias somos chamados a fazer escolhas. Algumas parecem pequenas, outras têm o poder de transformar completamente o rumo da nossa vida.",
+    fullDescription:
+      "Em meio a tantas vozes, opiniões e informações, surge uma pergunta: onde encontrar uma sabedoria que permaneça firme em qualquer circunstância? Foi dessa reflexão que nasceu este e-book em áudio. Embora existam milhares de livros disponíveis, poucos atravessaram séculos mantendo sua relevância. O livro de Provérbios é um deles. Organizado em 31 capítulos, ele reúne ensinamentos que continuam atuais e capazes de orientar decisões, fortalecer o caráter e conduzir uma vida baseada em princípios. Este projeto apresenta uma reflexão para cada capítulo de Provérbios, em um formato simples e acessível: apenas três minutos por dia. Um pequeno tempo de dedicação que pode produzir grandes mudanças quando colocado em prática. Nosso desejo é que, ao ouvir cada reflexão, você não apenas adquira conhecimento, mas também encontre oportunidades para avaliar sua caminhada, reconhecer o investimento que Deus tem feito em sua vida e permitir que Seus princípios moldem suas atitudes, decisões e relacionamentos. Que esta jornada diária seja um convite ao crescimento, à sabedoria e à transformação de vida.",
+    testimonial: {
+      quote:
+        "Cada pessoa é uma criação única. Não existem dois seres humanos exatamente iguais, e essa singularidade revela o cuidado e o propósito do nosso Criador. Compreender quem somos e reconhecer quem nos criou nos ajuda a perceber o quanto somos valiosos e especiais. Vivemos em um mundo repleto de informações, mas a verdadeira sabedoria vai além do conhecimento. Ela se revela na forma como pensamos, escolhemos e vivemos a cada dia. O livro de Provérbios é um dos maiores tesouros da Bíblia quando o assunto é sabedoria prática. Seus ensinamentos atravessaram gerações e continuam orientando homens e mulheres a construírem uma vida baseada em princípios, discernimento e temor a Deus. Grande parte desses provérbios foi escrita pelo rei Salomão, conhecido por sua sabedoria extraordinária. Mais do que admirar sua história, somos convidados a aprender com seus ensinamentos e aplicá-los em nossa própria caminhada. Minha oração é que cada reflexão apresentada neste e-book fortaleça sua fé, desperte sua consciência e inspire decisões cada vez mais alinhadas aos princípios de Deus. Que estes poucos minutos diários se tornem um investimento para toda a vida e que, ao final desta jornada, você esteja mais próximo do propósito para o qual foi criado. Que Deus abençoe sua leitura e transforme cada ensinamento em uma experiência prática de crescimento, sabedoria e esperança.",
+      author: "",
+    },
+    pdf: "assets/biblioteca/pdf/OPoderDos3Minutos.pdf",
   },
 };
