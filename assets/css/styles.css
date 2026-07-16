@@ -432,9 +432,14 @@ p {
 
 .brand-logo {
   display: block;
-  width: 54px;
-  height: 54px;
-  filter: drop-shadow(0 8px 18px rgba(15, 36, 68, 0.1));
+  width: 68px;
+  height: 68px;
+  padding: 4px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 24px rgba(15, 36, 68, 0.22), 0 0 0 3px rgba(198, 160, 75, 0.22);
 }
 
 .brand .brand-text span:first-child {
@@ -666,9 +671,8 @@ p {
 }
 
 .home-page .brand-logo {
-  width: 54px;
-  height: 54px;
-  filter: drop-shadow(0 8px 18px rgba(15, 36, 68, 0.1));
+  width: 68px;
+  height: 68px;
 }
 
 .home-page .brand .brand-text span:first-child {
@@ -4031,8 +4035,8 @@ body.admin-is-authenticated [data-component="footer"] {
   }
 
   .home-page .brand-logo {
-    width: 46px;
-    height: 46px;
+    width: 56px;
+    height: 56px;
   }
 
   .home-page .brand-text {

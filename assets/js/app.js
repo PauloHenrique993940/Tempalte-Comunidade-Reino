@@ -49,7 +49,7 @@ function renderHeader() {
     <header class="site-header" role="banner">
       <div class="container header-inner">
         <a class="brand" href="index.html" aria-label="Início">
-          <img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" />
+          <img class="brand-logo" src="assets/images/image.png" alt="Logo Comunidade do Reino" />
         </a>
         <nav class="nav" id="siteNav" aria-label="Navegação principal">
           <ul class="nav-list">
@@ -134,7 +134,7 @@ function renderFooter() {
       <div class="container">
         <div class="footer-grid">
           <div>
-            <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/logo.svg" alt="Logo Comunidade do Reino" /></a>
+            <a class="brand" href="index.html"><img class="brand-logo" src="assets/images/image.png" alt="Logo Comunidade do Reino" /></a>
             <p class="footer-about">Portal institucional de informação, cuidado, biblioteca, projetos, voluntariado e comunicação da Comunidade do Reino.</p>
             <div class="socials footer-socials" aria-label="Redes sociais">
               <a href="https://instagram.com/comunidadedoreino001" aria-label="Instagram">
