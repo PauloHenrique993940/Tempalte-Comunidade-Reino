@@ -1,18 +1,16 @@
 const site = {
   nav: [
-    ["index.html", "Início"],
-    ["quem-somos.html", "Quem Somos"],
-    ["projetos.html", "Projetos"],
-    ["biblioteca.html", "Biblioteca"],
-    ["podcasts.html", "Podcasts"],
-    ["voluntariado.html", "Voluntariado"],
-    ["contato.html", "Contato"],
+    ["index.html", "Início", "home"],
+    ["quem-somos.html", "Quem Somos", "landmark"],
+    ["projetos.html", "Projetos", "heart-handshake"],
+    ["biblioteca.html", "Biblioteca", "book-open"],
+    ["podcasts.html", "Podcasts", "headphones"],
+    ["contato.html", "Contato", "send"],
   ],
   footerGroups: {
     Institucional: [
       ["Quem Somos", "quem-somos.html"],
       ["Projetos", "projetos.html"],
-      ["Voluntariado", "voluntariado.html"],
       ["Contato", "contato.html"],
     ],
     Conteúdos: [
@@ -22,9 +20,9 @@ const site = {
       ["Mapa do Site", "sitemap.xml"],
     ],
     Acesso: [
-      ["Login", "login.html"],
+      ["Login do voluntário", "login.html"],
+      ["Painel administrativo", "admin.html"],
       ["Cadastro", "cadastro.html"],
-      ["Área do candidato", "painel-voluntario.html"],
       ["Perfil", "perfil.html"],
     ],
     Legal: [
@@ -56,15 +54,71 @@ function renderHeader() {
         </a>
         <nav class="nav" id="siteNav" aria-label="Navegação principal">
           <ul class="nav-list">
-            ${site.nav.map(([href, label]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ""}>${label}</a></li>`).join("")}
+            ${site.nav.map(([href, label, iconName]) => `<li><a class="nav-link" href="${href}" ${active === href ? 'aria-current="page"' : ""}>${icon(iconName, label)}</a></li>`).join("")}
           </ul>
         </nav>
         <div class="header-actions">
-          <a class="btn btn-outline" href="voluntariado.html">Quero Participar</a>
+          <div class="access-select" data-access-menu>
+            <button class="access-select__button" type="button" aria-label="Selecionar área de acesso" aria-expanded="false" data-access-toggle>
+              ${icon("key-round", "Acesso")}
+              <span class="access-select__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="access-select__menu" hidden>
+              <a href="login.html">${icon("user-round", "Candidato")}</a>
+              <a href="admin.html">${icon("shield-check", "Admin")}</a>
+            </div>
+          </div>
           <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-controls="siteNav" aria-expanded="false" data-menu-toggle><span></span><span></span><span></span></button>
         </div>
       </div>
     </header>`;
+}
+
+function setupAccessSelect() {
+  document.querySelectorAll("[data-access-menu]").forEach((menu) => {
+    const button = menu.querySelector("[data-access-toggle]");
+    const dropdown = menu.querySelector(".access-select__menu");
+    if (!button || !dropdown) return;
+
+    const close = () => {
+      menu.classList.remove("is-open");
+      dropdown.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    };
+
+    button.addEventListener("click", () => {
+      const isOpen = dropdown.hidden;
+      document.querySelectorAll(".access-select__menu").forEach((item) => {
+        if (item !== dropdown) item.hidden = true;
+      });
+      document.querySelectorAll("[data-access-menu]").forEach((item) => {
+        if (item !== menu) item.classList.remove("is-open");
+      });
+      menu.classList.toggle("is-open", isOpen);
+      dropdown.hidden = !isOpen;
+      button.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!menu.contains(event.target)) close();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  });
+}
+
+function setupLoginRedirect() {
+  document.querySelectorAll("[data-login-form]").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      toast("Login validado. Redirecionando para a área do voluntário.");
+      window.setTimeout(() => {
+        window.location.href = form.dataset.loginRedirect || "painel-voluntario.html";
+      }, 900);
+    });
+  });
 }
 
 function renderFooter() {
@@ -174,6 +228,527 @@ function setupForms() {
   });
 }
 
+function setupAdminLogin() {
+  const form = document.querySelector("[data-admin-login]");
+  const adminArea = document.querySelector("[data-admin-area]");
+  const loginScreen = document.querySelector("[data-admin-login-screen]");
+  const logoutButton = document.querySelector("[data-admin-logout]");
+  if (!form || !adminArea) return;
+
+  const unlockAdminArea = ({ shouldScroll = false } = {}) => {
+    adminArea.hidden = false;
+    if (loginScreen) loginScreen.hidden = true;
+    document.body.classList.add("admin-is-authenticated");
+    form.querySelector("button")?.setAttribute("disabled", "");
+
+    if (shouldScroll) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const lockAdminArea = () => {
+    adminArea.hidden = true;
+    if (loginScreen) loginScreen.hidden = false;
+    document.body.classList.remove("admin-is-authenticated");
+    form.querySelector("button")?.removeAttribute("disabled");
+    sessionStorage.removeItem("adminDemoAuthenticated");
+    history.replaceState(null, "", location.pathname);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (sessionStorage.getItem("adminDemoAuthenticated") === "true") {
+    unlockAdminArea();
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    sessionStorage.setItem("adminDemoAuthenticated", "true");
+    unlockAdminArea({ shouldScroll: true });
+    window.dispatchEvent(
+      new CustomEvent("admin:activity", {
+        detail: "Login administrativo demonstrativo liberado.",
+      }),
+    );
+    toast("Acesso administrativo demonstrativo liberado.");
+  });
+
+  logoutButton?.addEventListener("click", () => {
+    lockAdminArea();
+    toast("Sessão administrativa encerrada.");
+  });
+}
+
+function setupAdminPanels() {
+  const shell = document.querySelector(".admin-shell");
+  if (!shell) return;
+
+  const links = Array.from(shell.querySelectorAll('.admin-sidebar a[href^="#"]'));
+  const panels = Array.from(shell.querySelectorAll(".admin-section"));
+  if (!links.length || !panels.length) return;
+
+  const panelIds = new Set(panels.map((panel) => panel.id));
+
+  const activatePanel = (panelId) => {
+    const targetId = panelIds.has(panelId) ? panelId : panels[0].id;
+
+    panels.forEach((panel) => {
+      panel.hidden = panel.id !== targetId;
+    });
+
+    links.forEach((link) => {
+      const isActive = link.hash === `#${targetId}`;
+      link.classList.toggle("active", isActive);
+      link.toggleAttribute("aria-current", isActive);
+    });
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const panelId = link.hash.slice(1);
+      activatePanel(panelId);
+      history.pushState(null, "", `#${panelId}`);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    activatePanel(location.hash.slice(1));
+  });
+
+  activatePanel(location.hash.slice(1));
+}
+
+function setupAdminSimulation() {
+  const shell = document.querySelector(".admin-shell");
+  if (!shell) return;
+
+  const updateKpi = (key, amount = 1) => {
+    const value = document.querySelector(`[data-kpi="${key}"]`);
+    const note = document.querySelector(`[data-kpi-note="${key}"]`);
+    if (!value) return;
+    value.textContent = String((Number(value.textContent) || 0) + amount);
+    if (note) note.textContent = `${amount > 0 ? "+" : ""}${amount} nesta sessão`;
+  };
+
+  const addLog = (message) => {
+    const list = document.querySelector("[data-admin-logs]");
+    if (!list) return;
+    const item = document.createElement("li");
+    const time = document.createElement("time");
+    const text = document.createElement("span");
+    time.textContent = "Agora";
+    text.textContent = message;
+    item.append(time, text);
+    list.prepend(item);
+  };
+
+  const createBadge = (text) => {
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = text;
+    return badge;
+  };
+
+  const createBoardArticle = (badgeText, titleText, descriptionText) => {
+    const article = document.createElement("article");
+    const title = document.createElement("h3");
+    const description = document.createElement("p");
+    title.textContent = titleText;
+    description.textContent = descriptionText;
+    article.append(createBadge(badgeText), title, description);
+    return article;
+  };
+
+  const statusClass = (status) => {
+    const normalized = status.toLowerCase();
+    if (normalized.includes("pendente") || normalized.includes("treinamento")) {
+      return "status-pill status-pill--warning";
+    }
+    if (normalized.includes("inativo") || normalized.includes("desligado")) {
+      return "status-pill status-pill--danger";
+    }
+    return "status-pill";
+  };
+
+  const formatEventDate = (dateValue) => {
+    const date = new Date(`${dateValue}T12:00:00`);
+    const parts = new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit",
+      month: "short",
+    }).formatToParts(date);
+    const day = parts.find((part) => part.type === "day")?.value || "--";
+    const month = parts.find((part) => part.type === "month")?.value.replace(".", "") || "mês";
+    return `${day} ${month}`;
+  };
+
+  shell.querySelectorAll("[data-admin-open]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const panelId = button.dataset.adminOpen;
+      shell.querySelector(`.admin-sidebar a[href="#${panelId}"]`)?.click();
+      window.setTimeout(() => {
+        document.getElementById(panelId)?.querySelector("input, select, textarea, button")?.focus();
+      }, 120);
+    });
+  });
+
+  const userFilter = document.querySelector("[data-admin-user-filter]");
+  userFilter?.addEventListener("change", () => {
+    const role = userFilter.value;
+    document.querySelectorAll("#usuariosAdmin tbody tr").forEach((row) => {
+      row.hidden = role !== "Todos os perfis" && row.dataset.role !== role;
+    });
+  });
+
+  const userForm = document.querySelector("[data-admin-user-form]");
+  userForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!userForm.checkValidity()) {
+      userForm.reportValidity();
+      return;
+    }
+
+    const name = userForm.querySelector("#nomeUsuario").value.trim();
+    const profile = userForm.querySelector("#perfilUsuario").value;
+    const department = userForm.querySelector("#departamentoUsuario").value;
+    const status = userForm.querySelector("#statusUsuario").value;
+    const tableBody = document.querySelector("#usuariosAdmin tbody");
+    const row = document.createElement("tr");
+    row.dataset.searchItem = "";
+    row.dataset.role = profile;
+
+    [name, profile, department].forEach((text) => {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+
+    const statusCell = document.createElement("td");
+    const statusPill = document.createElement("span");
+    statusPill.className = statusClass(status);
+    statusPill.textContent = status;
+    statusCell.appendChild(statusPill);
+    row.appendChild(statusCell);
+
+    const accessCell = document.createElement("td");
+    accessCell.textContent = "Criado agora";
+    row.appendChild(accessCell);
+    tableBody?.prepend(row);
+
+    updateKpi("users");
+    addLog(`Usuário ${name} cadastrado como ${profile}.`);
+    toast("Usuário adicionado ao painel administrativo.");
+    userForm.reset();
+  });
+
+  const departmentForm = document.querySelector("[data-admin-department-form]");
+  departmentForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!departmentForm.checkValidity()) {
+      departmentForm.reportValidity();
+      return;
+    }
+
+    const name = departmentForm.querySelector("#departamentoNome").value.trim();
+    const leader = departmentForm.querySelector("#departamentoLider").value.trim();
+    const members = departmentForm.querySelector("#departamentoMembros").value;
+    const role = departmentForm.querySelector("#departamentoFuncao").value.trim();
+    document
+      .querySelector("[data-admin-departments]")
+      ?.prepend(createBoardArticle(name, `${members} membros`, `Líder: ${leader}. Responsável por ${role}.`));
+    addLog(`Núcleo institucional ${name} criado.`);
+    toast("Núcleo institucional adicionado.");
+    departmentForm.reset();
+  });
+
+  const volunteerForm = document.querySelector("[data-admin-volunteer-form]");
+  volunteerForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!volunteerForm.checkValidity()) {
+      volunteerForm.reportValidity();
+      return;
+    }
+
+    const name = volunteerForm.querySelector("#voluntarioNome").value.trim();
+    const department = volunteerForm.querySelector("#voluntarioDepartamento").value;
+    const status = volunteerForm.querySelector("#voluntarioStatus").value;
+    const role = volunteerForm.querySelector("#voluntarioFuncao").value.trim() || "Função a definir";
+    document
+      .querySelector("[data-admin-volunteers]")
+      ?.prepend(createBoardArticle(status, name, `${department} • ${role}`));
+    if (status === "Ativo" || status === "Aprovado") updateKpi("volunteers");
+    addLog(`Voluntário ${name} registrado em ${department}.`);
+    toast("Voluntário registrado no painel.");
+    volunteerForm.reset();
+  });
+
+  const candidateStatusClass = (status) => {
+    if (status === "Aprovada") return "badge status-pill";
+    return "badge status-pill status-pill--warning";
+  };
+
+  document.querySelectorAll("[data-admin-candidate-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const status = button.dataset.adminCandidateAction;
+      const card = button.closest("[data-admin-candidate-card]");
+      const statusBadge = card?.querySelector("[data-admin-candidate-status]");
+      const candidateName = card?.querySelector("h3")?.textContent || "Candidato";
+      if (!status || !statusBadge) return;
+
+      statusBadge.textContent = status;
+      statusBadge.className = candidateStatusClass(status);
+      button.closest(".admin-candidate-actions")?.querySelectorAll("button").forEach((item) => {
+        item.disabled = status === "Aprovada";
+      });
+
+      if (status === "Aprovada") updateKpi("volunteers");
+      addLog(`${candidateName}: candidatura atualizada para ${status}.`);
+      toast(`Candidatura de ${candidateName} atualizada para ${status}.`);
+    });
+  });
+
+  const contentForm = document.querySelector("[data-admin-content-form]");
+  contentForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!contentForm.checkValidity()) {
+      contentForm.reportValidity();
+      return;
+    }
+
+    const title = contentForm.querySelector("#conteudoTitulo").value.trim();
+    const type = contentForm.querySelector("#conteudoTipo").value;
+    const status = contentForm.querySelector("#conteudoStatus").value;
+    const summary = contentForm.querySelector("#conteudoResumo").value.trim();
+    document
+      .querySelector("[data-admin-contents]")
+      ?.prepend(createBoardArticle(status, title, `${type} • ${summary}`));
+    updateKpi("contents");
+    addLog(`Conteúdo ${title} salvo como ${status}.`);
+    toast("Conteúdo salvo na simulação administrativa.");
+    contentForm.reset();
+  });
+
+  const eventForm = document.querySelector("[data-admin-event-form]");
+  eventForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!eventForm.checkValidity()) {
+      eventForm.reportValidity();
+      return;
+    }
+
+    const title = eventForm.querySelector("#eventoTitulo").value.trim();
+    const date = eventForm.querySelector("#eventoData").value;
+    const hour = eventForm.querySelector("#eventoHora").value;
+    const area = eventForm.querySelector("#eventoArea").value;
+    const article = document.createElement("article");
+    const time = document.createElement("time");
+    const content = document.createElement("div");
+    const heading = document.createElement("h3");
+    const description = document.createElement("p");
+    time.dateTime = date;
+    time.textContent = formatEventDate(date);
+    heading.textContent = title;
+    description.textContent = `${area} • ${hour} • Local a definir`;
+    content.append(heading, description);
+    article.append(time, content);
+    document.querySelector("[data-admin-events]")?.prepend(article);
+    updateKpi("events");
+    addLog(`Evento ${title} agendado para ${formatEventDate(date)}.`);
+    toast("Evento adicionado à agenda.");
+    eventForm.reset();
+  });
+
+  const configForm = document.querySelector("[data-admin-config-form]");
+  configForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!configForm.checkValidity()) {
+      configForm.reportValidity();
+      return;
+    }
+
+    const name = configForm.querySelector("#instituicaoNome").value.trim();
+    sessionStorage.setItem("adminInstitutionName", name);
+    addLog(`Configurações institucionais de ${name} atualizadas.`);
+    toast("Configurações institucionais salvas nesta sessão.");
+  });
+
+  window.addEventListener("admin:activity", (event) => {
+    addLog(event.detail || "Atividade administrativa registrada.");
+  });
+}
+
+function setupCandidatePortal() {
+  const shell = document.querySelector(".candidate-shell");
+  if (!shell) return;
+
+  const links = Array.from(shell.querySelectorAll('.candidate-sidebar a[href^="#"]'));
+  const panels = Array.from(shell.querySelectorAll(".candidate-section"));
+  const panelIds = new Set(panels.map((panel) => panel.id));
+
+  const activatePanel = (panelId) => {
+    const targetId = panelIds.has(panelId) ? panelId : panels[0]?.id;
+    if (!targetId) return;
+
+    panels.forEach((panel) => {
+      panel.hidden = panel.id !== targetId;
+    });
+
+    links.forEach((link) => {
+      const isActive = link.hash === `#${targetId}`;
+      link.classList.toggle("active", isActive);
+      link.toggleAttribute("aria-current", isActive);
+    });
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const panelId = link.hash.slice(1);
+      activatePanel(panelId);
+      history.pushState(null, "", `#${panelId}`);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    activatePanel(location.hash.slice(1));
+  });
+
+  const statusData = {
+    "Documentos pendentes": {
+      className: "badge status-pill status-pill--warning",
+      description: "A coordenação solicitou revisão ou envio de documentos complementares.",
+      timelineTitle: "Documentos pendentes",
+      timelineText: "Verifique a aba Documentos e envie os arquivos solicitados.",
+    },
+    "Entrevista agendada": {
+      className: "badge status-pill status-pill--warning",
+      description: "Sua candidatura avançou para conversa com a coordenação.",
+      timelineTitle: "Entrevista agendada",
+      timelineText: "Acompanhe a agenda para confirmar data, horário e formato.",
+    },
+    Aprovada: {
+      className: "badge status-pill",
+      description: "Parabéns. Sua candidatura foi aprovada para início do voluntariado.",
+      timelineTitle: "Candidatura aprovada",
+      timelineText: "A equipe entrará em contato para orientar a integração.",
+    },
+  };
+
+  const addTimelineItem = (title, text) => {
+    const timeline = document.querySelector("[data-candidate-timeline]");
+    if (!timeline) return;
+    const item = document.createElement("li");
+    item.className = "is-active";
+    const time = document.createElement("time");
+    const content = document.createElement("div");
+    const heading = document.createElement("h3");
+    const description = document.createElement("p");
+    time.textContent = "Agora";
+    heading.textContent = title;
+    description.textContent = text;
+    content.append(heading, description);
+    item.append(time, content);
+    timeline.prepend(item);
+  };
+
+  shell.querySelectorAll("[data-candidate-status-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const status = button.dataset.candidateStatusAction;
+      const data = statusData[status];
+      const statusBadges = document.querySelectorAll(
+        "[data-candidate-status], [data-candidate-status-card]",
+      );
+      const statusDescriptions = document.querySelectorAll(
+        "[data-candidate-status-description], [data-candidate-status-card-description]",
+      );
+      const topbarStatus = document.querySelector("[data-candidate-status-topbar]");
+      if (!data || !statusBadges.length || !statusDescriptions.length) return;
+
+      statusBadges.forEach((badge) => {
+        badge.textContent = status;
+        badge.className = data.className;
+      });
+      statusDescriptions.forEach((description) => {
+        description.textContent = data.description;
+      });
+      if (topbarStatus) topbarStatus.textContent = status;
+      addTimelineItem(data.timelineTitle, data.timelineText);
+      toast(`Status atualizado para: ${status}.`);
+    });
+  });
+
+  const profileForm = document.querySelector("[data-candidate-profile-form]");
+  profileForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!profileForm.checkValidity()) {
+      profileForm.reportValidity();
+      return;
+    }
+
+    const name = profileForm.querySelector("#candidateName").value.trim();
+    document.querySelectorAll("[data-candidate-name-display]").forEach((item) => {
+      item.textContent = name;
+    });
+    toast("Dados do candidato salvos nesta sessão.");
+  });
+
+  const updateCounter = (selector) => {
+    const target = document.querySelector(selector);
+    if (!target) return;
+    target.textContent = String((Number(target.textContent) || 0) + 1);
+  };
+
+  const documentForm = document.querySelector("[data-candidate-doc-form]");
+  documentForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!documentForm.checkValidity()) {
+      documentForm.reportValidity();
+      return;
+    }
+
+    const name = documentForm.querySelector("#docName").value.trim();
+    const list = document.querySelector("[data-candidate-docs]");
+    const article = document.createElement("article");
+    article.innerHTML = `<i data-lucide="file-check-2"></i><div><h3></h3><p>Enviado agora • Aguardando revisão</p></div><span class="status-pill status-pill--warning">Revisão</span>`;
+    article.querySelector("h3").textContent = name;
+    list?.prepend(article);
+    updateCounter("[data-candidate-doc-count]");
+    documentForm.reset();
+    if (window.lucide) window.lucide.createIcons();
+    toast("Documento enviado para revisão.");
+  });
+
+  const messageForm = document.querySelector("[data-candidate-message-form]");
+  messageForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!messageForm.checkValidity()) {
+      messageForm.reportValidity();
+      return;
+    }
+
+    const message = messageForm.querySelector("#candidateMessage").value.trim();
+    const list = document.querySelector("[data-candidate-messages]");
+    const article = document.createElement("article");
+    const author = document.createElement("span");
+    const text = document.createElement("p");
+    const time = document.createElement("time");
+    author.textContent = "Você";
+    text.textContent = message;
+    time.textContent = "Agora";
+    article.append(author, text, time);
+    list?.prepend(article);
+    updateCounter("[data-candidate-message-count]");
+    messageForm.reset();
+    toast("Mensagem enviada para a coordenação.");
+  });
+
+  activatePanel(location.hash.slice(1));
+}
+
 function setupBackToTop() {
   const button = document.createElement("button");
   button.className = "back-to-top";
@@ -222,9 +797,15 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHeader();
   renderFooter();
   setupMenu();
+  setupAccessSelect();
+  setupLoginRedirect();
   setupReveal();
   setupFilters();
   setupForms();
+  setupAdminLogin();
+  setupAdminPanels();
+  setupAdminSimulation();
+  setupCandidatePortal();
   setupNewsletter();
   setupBackToTop();
   setupProjectCarousel();

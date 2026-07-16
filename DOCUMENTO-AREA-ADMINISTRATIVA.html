@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documento da Área Administrativa | Comunidade do Reino</title>
+  <style>
+    :root {
+      --primary: #102459;
+      --primary-soft: #1b3a6b;
+      --accent: #f5c518;
+      --paper: #ffffff;
+      --bg: #f4f0e8;
+      --text: #17233d;
+      --muted: #536078;
+      --border: #d8deea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(100% - 32px, 960px);
+      margin: 32px auto;
+      padding: 56px;
+      background: var(--paper);
+      box-shadow: 0 18px 60px rgba(16, 36, 89, 0.14);
+    }
+
+    .cover {
+      padding: 38px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+      color: #ffffff;
+      margin-bottom: 36px;
+    }
+
+    .cover p {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--primary);
+      line-height: 1.18;
+    }
+
+    .cover h1 {
+      color: #ffffff;
+      font-size: 2.65rem;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      padding-top: 20px;
+      margin-top: 28px;
+      border-top: 2px solid var(--border);
+      font-size: 1.65rem;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    ul,
+    ol {
+      margin: 10px 0 20px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 26px;
+      font-size: 0.95rem;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3fb;
+      color: var(--primary);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .box {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      border-radius: 10px;
+      background: #fbfcff;
+    }
+
+    .box strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .note {
+      padding: 18px;
+      border-radius: 10px;
+      background: #fff8dc;
+      border: 1px solid #f0d56b;
+      color: #6b5500;
+      margin: 22px 0;
+    }
+
+    .footer {
+      margin-top: 42px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        padding: 24mm;
+        box-shadow: none;
+      }
+
+      h2 {
+        break-after: avoid;
+      }
+
+      table,
+      .box,
+      .note {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="cover">
+      <p class="kicker">Comunidade do Reino</p>
+      <h1>Documento da Área Administrativa</h1>
+      <p>Versão de funcionamento atual, escopo do MVP e próximos passos recomendados para evolução do sistema administrativo.</p>
+    </section>
+
+    <h2>1. O que o projeto faz no momento</h2>
+    <p>O projeto, no estado atual, funciona como um portal institucional estático da Comunidade do Reino. Ele apresenta páginas públicas para divulgar a comunidade, projetos, biblioteca, podcasts, voluntariado, contato, políticas e páginas de acesso.</p>
+    <p>Além do portal público, foi criada uma primeira versão visual da área administrativa. Essa versão é um MVP demonstrativo, ou seja, mostra a estrutura, os módulos e os fluxos esperados, mas ainda não possui banco de dados, autenticação real ou persistência de informações.</p>
+
+    <div class="summary-grid">
+      <div class="box"><strong>Portal público</strong>Permite navegar por páginas institucionais, conhecer projetos, biblioteca, podcasts, voluntariado e canais de contato.</div>
+      <div class="box"><strong>Painel administrativo MVP</strong>Apresenta uma tela administrativa inicial para validar dashboard, cadastros, módulos e organização visual.</div>
+      <div class="box"><strong>Formulários demonstrativos</strong>Os formulários exibem mensagens de confirmação, mas ainda não salvam dados em backend.</div>
+      <div class="box"><strong>Navegação de acesso</strong>O cabeçalho possui uma seleção única para escolher entre acesso de Voluntário e Admin.</div>
+    </div>
+
+    <h2>2. Versão de funcionamento atual</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Área</th>
+          <th>Status atual</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Site institucional</td>
+          <td>Funcional como site estático</td>
+          <td>As páginas HTML podem ser abertas e navegadas localmente ou publicadas em hospedagem estática.</td>
+        </tr>
+        <tr>
+          <td>Área administrativa</td>
+          <td>MVP visual/demonstrativo</td>
+          <td>Existe a página admin.html com módulos principais, dados simulados e interface responsiva.</td>
+        </tr>
+        <tr>
+          <td>Login administrativo</td>
+          <td>Demonstração</td>
+          <td>O formulário existe, mas não valida usuário, senha, sessão ou permissão real.</td>
+        </tr>
+        <tr>
+          <td>Banco de dados</td>
+          <td>Não implementado</td>
+          <td>Ainda não há tabelas, API ou armazenamento persistente para usuários, voluntários e eventos.</td>
+        </tr>
+        <tr>
+          <td>Segurança e LGPD</td>
+          <td>Planejada</td>
+          <td>A interface já prevê logs e perfis, mas as regras reais precisam ser implementadas no backend.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. Objetivo da Área Administrativa</h2>
+    <p>Centralizar a administração do site e fornecer ferramentas que permitam aos líderes e administradores gerenciar as atividades da Comunidade com eficiência, segurança e organização.</p>
+
+    <h2>4. Funcionalidades previstas</h2>
+    <h3>4.1 Dashboard</h3>
+    <ul>
+      <li>Indicadores gerais do sistema.</li>
+      <li>Número de usuários cadastrados.</li>
+      <li>Voluntários ativos.</li>
+      <li>Novos cadastros.</li>
+      <li>Estatísticas de acesso.</li>
+      <li>Avisos e notificações.</li>
+    </ul>
+
+    <h3>4.2 Gestão de Usuários</h3>
+    <ul>
+      <li>Cadastro de usuários.</li>
+      <li>Edição e atualização de dados.</li>
+      <li>Ativação e desativação de contas.</li>
+      <li>Recuperação de acesso.</li>
+      <li>Histórico de atividades.</li>
+    </ul>
+
+    <h3>4.3 Perfis de Acesso</h3>
+    <ul>
+      <li>Administrador Geral.</li>
+      <li>Coordenador.</li>
+      <li>Líder de Departamento.</li>
+      <li>Voluntário.</li>
+      <li>Usuário da Comunidade.</li>
+    </ul>
+    <p>Cada perfil deverá possuir permissões específicas para visualizar, criar, editar ou excluir informações dentro do sistema.</p>
+
+    <h3>4.4 Gestão de Departamentos</h3>
+    <ul>
+      <li>Cadastro de departamentos.</li>
+      <li>Cadastro de equipes.</li>
+      <li>Vinculação de voluntários.</li>
+      <li>Distribuição de funções.</li>
+    </ul>
+
+    <h3>4.5 Cadastro de Voluntários</h3>
+    <ul>
+      <li>Formulário de inscrição.</li>
+      <li>Acompanhamento das atividades.</li>
+      <li>Situação do voluntário.</li>
+      <li>Registro do tempo de participação.</li>
+      <li>Emissão futura de certificados.</li>
+    </ul>
+
+    <h3>4.6 Biblioteca Digital</h3>
+    <ul>
+      <li>Upload de documentos.</li>
+      <li>Organização por categorias.</li>
+      <li>Controle de versões.</li>
+      <li>Disponibilização de e-books, apostilas, manuais e materiais institucionais.</li>
+    </ul>
+
+    <h3>4.7 Conteúdo do Site</h3>
+    <ul>
+      <li>Notícias.</li>
+      <li>Artigos.</li>
+      <li>Podcast.</li>
+      <li>Vídeos.</li>
+      <li>Agenda.</li>
+      <li>Publicações institucionais.</li>
+    </ul>
+
+    <h3>4.8 Formulários e Questionários</h3>
+    <ul>
+      <li>Criação de formulários.</li>
+      <li>Questionários personalizados.</li>
+      <li>Visualização das respostas.</li>
+      <li>Exportação dos dados.</li>
+    </ul>
+
+    <h3>4.9 Agenda</h3>
+    <ul>
+      <li>Eventos.</li>
+      <li>Reuniões.</li>
+      <li>Treinamentos.</li>
+      <li>Calendário institucional.</li>
+    </ul>
+
+    <h3>4.10 Relatórios</h3>
+    <ul>
+      <li>Exportação de dados.</li>
+      <li>Estatísticas.</li>
+      <li>Indicadores de participação.</li>
+      <li>Relatórios administrativos.</li>
+    </ul>
+
+    <h3>4.11 Configurações Gerais</h3>
+    <ul>
+      <li>Dados institucionais.</li>
+      <li>Redes sociais.</li>
+      <li>Contatos.</li>
+      <li>Configurações do sistema.</li>
+      <li>Identidade visual.</li>
+    </ul>
+
+    <h3>4.12 Segurança</h3>
+    <ul>
+      <li>Controle de permissões.</li>
+      <li>Registro de acessos e logs.</li>
+      <li>Histórico de alterações.</li>
+      <li>Backup e recuperação de dados.</li>
+      <li>Recursos voltados à conformidade com a LGPD.</li>
+    </ul>
+
+    <h2>5. O que já foi entregue na primeira etapa</h2>
+    <ul>
+      <li>Criação da página administrativa admin.html.</li>
+      <li>Dashboard demonstrativo com indicadores iniciais.</li>
+      <li>Estrutura de menu administrativo com módulos do MVP.</li>
+      <li>Listagem demonstrativa de usuários.</li>
+      <li>Formulários demonstrativos para usuários, voluntários e configurações.</li>
+      <li>Seções para departamentos, conteúdo, agenda, segurança, logs e LGPD.</li>
+      <li>Seleção única no cabeçalho para acesso de Voluntário ou Admin.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Importante:</strong> esta etapa não compromete decisões definitivas de backend, banco de dados ou arquitetura. Ela funciona como protótipo funcional de navegação e validação visual para orientar a próxima fase.
+    </div>
+
+    <h2>6. O que ainda falta para virar sistema real</h2>
+    <ol>
+      <li>Implementar autenticação real com senha criptografada.</li>
+      <li>Criar backend/API para salvar e consultar dados.</li>
+      <li>Definir e criar o banco de dados.</li>
+      <li>Implementar permissões por perfil de acesso.</li>
+      <li>Conectar formulários administrativos ao backend.</li>
+      <li>Criar logs reais de ações administrativas.</li>
+      <li>Aplicar políticas de segurança, backup e LGPD.</li>
+      <li>Testar com usuários reais antes da publicação oficial.</li>
+    </ol>
+
+    <h2>7. Estratégia de Desenvolvimento</h2>
+    <p>A recomendação é seguir uma estratégia incremental, iniciando com um MVP contendo apenas os recursos essenciais para colocar o sistema em funcionamento. A partir dessa base, novas funcionalidades poderão ser adicionadas conforme a Comunidade crescer e novas demandas surgirem.</p>
+    <p>Para a próxima fase, a prioridade recomendada é implementar login administrativo real, usuários, perfis de acesso e departamentos. Essa base sustenta os demais módulos com mais segurança.</p>
+
+    <h2>8. Visão de Longo Prazo</h2>
+    <p>O sistema deve ser pensado para acompanhar o crescimento da Comunidade do Reino nos próximos anos. Uma arquitetura modular permitirá incorporar novos recursos sem reconstruir toda a plataforma.</p>
+    <ul>
+      <li>Área de cursos e treinamentos.</li>
+      <li>Biblioteca digital ampliada.</li>
+      <li>Gestão de podcasts.</li>
+      <li>Emissão automática de certificados.</li>
+      <li>Gestão avançada de eventos.</li>
+      <li>Área exclusiva para líderes e voluntários.</li>
+      <li>Integrações futuras com outros serviços.</li>
+      <li>Aplicativo móvel.</li>
+    </ul>
+
+    <h2>9. Como gerar o PDF manualmente</h2>
+    <ol>
+      <li>Abra este arquivo no navegador: DOCUMENTO-AREA-ADMINISTRATIVA.html.</li>
+      <li>Pressione Ctrl + P.</li>
+      <li>Em destino, escolha Salvar como PDF.</li>
+      <li>Confirme o tamanho A4 e salve o arquivo.</li>
+    </ol>
+
+    <p class="footer">Documento preparado para a Comunidade do Reino. Versão atual: MVP administrativo demonstrativo.</p>
+  </main>
+</body>
+
+</html>

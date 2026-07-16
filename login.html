@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Comunidade do Reino</title>
-    <meta name="description" content="Acesse a área do candidato da Comunidade do Reino." />
+    <title>Login do Voluntário | Comunidade do Reino</title>
+    <meta name="description" content="Acesse a área do voluntário da Comunidade do Reino com login protegido." />
     <meta name="robots" content="noindex" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,20 +18,28 @@
 <body>
     <div data-component="header"></div>
     <main id="conteudo">
-        <section class="section">
+        <section class="section auth-hero">
             <div class="container grid grid-2">
                 <div>
-                    <p class="eyebrow">Área do candidato</p>
-                    <h1>Entrar.</h1>
-                    <p class="lead">Acesso preparado para autenticação futura.</p>
+                    <p class="eyebrow">Área do voluntário</p>
+                    <h1>Entrar na área restrita.</h1>
+                    <p class="lead">O painel do voluntário deve ser acessado somente após login, garantindo acompanhamento seguro de status, documentos, mensagens e atividades.</p>
+                    <ul class="list-check mt-22">
+                        <li>Acompanhar candidatura e situação do voluntário.</li>
+                        <li>Atualizar dados pessoais e documentos.</li>
+                        <li>Consultar mensagens e próximas etapas.</li>
+                    </ul>
                 </div>
-                <form class="card form-grid" data-demo-form>
+                <form class="card form-grid" data-login-form data-login-redirect="painel-voluntario.html">
+                    <p class="eyebrow form-full">Login protegido</p>
+                    <h2 class="form-full">Acesso do voluntário</h2>
                     <div class="field form-full"><label for="email">E-mail</label><input id="email" type="email"
                             required /></div>
                     <div class="field form-full"><label for="senha">Senha</label><input id="senha" type="password"
                             required /></div><button class="btn btn-primary form-full" type="submit">Entrar</button>
                     <p class="form-full"><a href="recuperar-senha.html">Recuperar senha</a> · <a
                             href="cadastro.html">Criar cadastro</a></p>
+                    <p class="help form-full">Nesta versão estática, o login simula a autenticação. Na versão com backend, este acesso validará usuário, senha, sessão e permissões.</p>
                 </form>
             </div>
         </section>

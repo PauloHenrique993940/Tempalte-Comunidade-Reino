@@ -15,44 +15,137 @@
         rel="stylesheet" />
 </head>
 
-<body>
+<body class="candidate-page">
     <div data-component="header"></div>
     <main id="conteudo">
-        <section class="page-hero">
-            <div class="container">
-                <nav class="breadcrumb"><a href="index.html">Início</a><span>/</span><span>Área do candidato</span>
-                </nav>
-                <p class="eyebrow">Acompanhamento</p>
-                <h1>Área do candidato.</h1>
-                <p class="lead">Painel preparado para status, mensagens, documentos e histórico da candidatura.</p>
+        <section class="candidate-shell-section">
+            <div class="container candidate-topbar">
+                <div>
+                    <p class="eyebrow">Área do candidato</p>
+                    <strong data-candidate-name-display>Marina Oliveira</strong>
+                    <span class="candidate-topbar__status">Status: <b data-candidate-status-topbar>Em análise</b></span>
+                </div>
+                <a class="btn btn-secondary" href="login.html"><i data-lucide="log-out"></i>Sair</a>
             </div>
-        </section>
-        <section class="section">
-            <div class="container dashboard">
-                <aside class="sidebar"><a href="#status">Status</a><a href="perfil.html">Perfil</a><a
-                        href="#documentos">Documentos</a><a href="#mensagens">Mensagens</a></aside>
-                <div class="grid">
-                    <section id="status" class="grid grid-3">
-                        <article class="card"><span class="badge status-pill">Recebida</span>
-                            <h3>Candidatura</h3>
-                            <p>Seu cadastro foi recebido e aguarda análise.</p>
-                        </article>
-                        <article class="card">
-                            <h3>Próxima etapa</h3>
-                            <p>Triagem da área de interesse e conferência de disponibilidade.</p>
-                        </article>
-                        <article class="card">
-                            <h3>Entrevista</h3>
-                            <p>Nenhuma solicitação de entrevista no momento.</p>
-                        </article>
+
+            <div class="container candidate-shell">
+                <aside class="sidebar candidate-sidebar" aria-label="Menu da área do candidato">
+                    <div class="candidate-sidebar__brand">
+                        <span>CD</span>
+                        <div>
+                            <strong>Candidato</strong>
+                            <small>Acompanhamento</small>
+                        </div>
+                    </div>
+                    <a class="active" href="#resumo"><i data-lucide="layout-dashboard"></i>Resumo</a>
+                    <a href="#dados"><i data-lucide="user-round"></i>Meus dados</a>
+                    <a href="#candidatura"><i data-lucide="clipboard-check"></i>Candidatura</a>
+                    <a href="#documentos"><i data-lucide="folder-check"></i>Documentos</a>
+                    <a href="#mensagens"><i data-lucide="messages-square"></i>Mensagens</a>
+                    <a href="#agenda"><i data-lucide="calendar-days"></i>Agenda</a>
+                </aside>
+
+                <div class="candidate-content">
+                    <section id="resumo" class="candidate-section">
+                        <div class="section-header section-header--small">
+                            <p class="eyebrow">Painel do candidato</p>
+                            <h1>Acompanhe sua candidatura.</h1>
+                            <p class="lead">Veja status, próximos passos, dados cadastrados, documentos enviados e mensagens da coordenação.</p>
+                        </div>
+                        <div class="candidate-status-hero">
+                            <div>
+                                <span class="badge status-pill status-pill--warning" data-candidate-status>Em análise</span>
+                                <h2>Candidatura para voluntariado</h2>
+                                <p data-candidate-status-description>Sua inscrição foi recebida e está em triagem pela equipe responsável.</p>
+                            </div>
+                            <div class="candidate-progress" aria-label="Progresso da candidatura">
+                                <span class="is-done">Recebida</span>
+                                <span class="is-active">Análise</span>
+                                <span>Entrevista</span>
+                                <span>Aprovada</span>
+                            </div>
+                        </div>
+                        <div class="candidate-kpi-grid">
+                            <article class="candidate-kpi-card"><i data-lucide="clock-3"></i><span>Atualização</span><strong>Hoje</strong><small>Última movimentação</small></article>
+                            <article class="candidate-kpi-card"><i data-lucide="folder-check"></i><span>Documentos</span><strong data-candidate-doc-count>2</strong><small>1 pendente de revisão</small></article>
+                            <article class="candidate-kpi-card"><i data-lucide="message-circle"></i><span>Mensagens</span><strong data-candidate-message-count>1</strong><small>Coordenação respondeu</small></article>
+                        </div>
                     </section>
-                    <section id="documentos" class="card">
-                        <h2>Documentos</h2>
-                        <p>Currículo, documentos e comprovantes poderão ser enviados e revisados aqui.</p>
+
+                    <section id="dados" class="candidate-section">
+                        <div class="candidate-section-heading">
+                            <div><p class="eyebrow">Dados do candidato</p><h2>Perfil e informações de contato.</h2></div>
+                        </div>
+                        <form class="candidate-card form-grid" data-candidate-profile-form>
+                            <div class="field"><label for="candidateName">Nome completo</label><input id="candidateName" value="Marina Oliveira" required /></div>
+                            <div class="field"><label for="candidateEmail">E-mail</label><input id="candidateEmail" type="email" value="marina@email.com" required /></div>
+                            <div class="field"><label for="candidatePhone">WhatsApp</label><input id="candidatePhone" type="tel" value="(69) 99999-0000" /></div>
+                            <div class="field"><label for="candidateCity">Cidade</label><input id="candidateCity" value="Porto Velho" /></div>
+                            <div class="field"><label for="candidateArea">Área de interesse</label><select id="candidateArea"><option>Cuidado comunitário</option><option>Ensino</option><option>Comunicação</option><option>Eventos</option><option>Biblioteca</option><option>Tecnologia</option></select></div>
+                            <div class="field"><label for="candidateAvailability">Disponibilidade</label><select id="candidateAvailability"><option>Semanal</option><option>Quinzenal</option><option>Mensal</option><option>Pontual</option></select></div>
+                            <div class="field form-full"><label for="candidateSkills">Habilidades</label><textarea id="candidateSkills">Acolhimento, organização de grupos, comunicação e apoio em eventos.</textarea></div>
+                            <button class="btn btn-primary form-full" type="submit">Salvar dados</button>
+                        </form>
                     </section>
-                    <section id="mensagens" class="card">
-                        <h2>Mensagens</h2>
-                        <p>Canal preparado para comunicação com a coordenação.</p>
+
+                    <section id="candidatura" class="candidate-section">
+                        <div class="candidate-section-heading">
+                            <div><p class="eyebrow">Status da candidatura</p><h2>Etapas e decisões.</h2></div>
+                        </div>
+                        <article class="candidate-current-status">
+                            <span class="badge status-pill status-pill--warning" data-candidate-status-card>Em análise</span>
+                            <div>
+                                <h3>Status atual da candidatura</h3>
+                                <p data-candidate-status-card-description>Sua inscrição foi recebida e está em triagem pela equipe responsável.</p>
+                            </div>
+                        </article>
+                        <div class="candidate-review-note">
+                            <i data-lucide="shield-check"></i>
+                            <p>A aprovação é feita pela coordenação na área administrativa. Aqui o candidato acompanha cada atualização do processo.</p>
+                        </div>
+                        <ol class="candidate-timeline" data-candidate-timeline>
+                            <li class="is-done"><time>15 jul</time><div><h3>Candidatura recebida</h3><p>Cadastro enviado com sucesso.</p></div></li>
+                            <li class="is-active"><time>Hoje</time><div><h3>Em análise</h3><p>Coordenação avaliando área de interesse e disponibilidade.</p></div></li>
+                            <li><time>Próxima</time><div><h3>Entrevista ou orientação</h3><p>Você será avisado quando houver uma etapa definida.</p></div></li>
+                        </ol>
+                    </section>
+
+                    <section id="documentos" class="candidate-section">
+                        <div class="candidate-section-heading">
+                            <div><p class="eyebrow">Documentos</p><h2>Envios e revisão.</h2></div>
+                        </div>
+                        <div class="candidate-doc-list" data-candidate-docs>
+                            <article><i data-lucide="file-check-2"></i><div><h3>Currículo</h3><p>Enviado hoje • Em revisão</p></div><span class="status-pill status-pill--warning">Revisão</span></article>
+                            <article><i data-lucide="file-check-2"></i><div><h3>Documento de identificação</h3><p>Enviado ontem • Conferido</p></div><span class="status-pill">Conferido</span></article>
+                        </div>
+                        <form class="candidate-card form-grid" data-candidate-doc-form>
+                            <div class="field"><label for="docName">Nome do documento</label><input id="docName" placeholder="Ex.: comprovante de endereço" required /></div>
+                            <div class="field"><label for="docFile">Arquivo</label><input id="docFile" type="file" /></div>
+                            <button class="btn btn-primary form-full" type="submit">Enviar documento</button>
+                        </form>
+                    </section>
+
+                    <section id="mensagens" class="candidate-section">
+                        <div class="candidate-section-heading">
+                            <div><p class="eyebrow">Mensagens</p><h2>Comunicação com a coordenação.</h2></div>
+                        </div>
+                        <div class="candidate-message-list" data-candidate-messages>
+                            <article><span>Coordenação</span><p>Recebemos sua candidatura. Em breve retornaremos com os próximos passos.</p><time>Hoje, 09:30</time></article>
+                        </div>
+                        <form class="candidate-card form-grid" data-candidate-message-form>
+                            <div class="field form-full"><label for="candidateMessage">Enviar mensagem</label><textarea id="candidateMessage" placeholder="Escreva uma dúvida para a coordenação" required></textarea></div>
+                            <button class="btn btn-primary form-full" type="submit">Enviar mensagem</button>
+                        </form>
+                    </section>
+
+                    <section id="agenda" class="candidate-section">
+                        <div class="candidate-section-heading">
+                            <div><p class="eyebrow">Agenda</p><h2>Próximas etapas e compromissos.</h2></div>
+                        </div>
+                        <div class="candidate-agenda-list">
+                            <article><time datetime="2026-07-18">18 jul</time><div><h3>Revisão de documentos</h3><p>Equipe de voluntariado • Online</p></div></article>
+                            <article><time datetime="2026-07-22">22 jul</time><div><h3>Possível entrevista</h3><p>A confirmar após análise inicial</p></div></article>
+                        </div>
                     </section>
                 </div>
             </div>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo | Comunidade do Reino</title>
+  <meta name="description" content="Painel administrativo institucional da Comunidade do Reino para gestão de usuários, equipes, voluntários, conteúdo, agenda e configurações." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body class="admin-page">
+  <div data-component="header"></div>
+  <main id="conteudo">
+    <section class="admin-hero" data-admin-login-screen>
+      <div class="container admin-hero__grid">
+        <div>
+          <nav class="breadcrumb"><a href="index.html">Início</a><span>/</span><span>Administrativo</span></nav>
+          <p class="eyebrow">Gestão institucional</p>
+          <h1>Área administrativa institucional.</h1>
+          <p class="lead">Ambiente central para administrar pessoas, equipes, voluntariado, conteúdo, agenda e configurações institucionais com segurança e organização.</p>
+        </div>
+        <form class="admin-login-card" data-admin-login aria-label="Login administrativo demonstrativo">
+          <span class="badge">Login administrativo</span>
+          <div class="field">
+            <label for="adminEmail">E-mail</label>
+            <input id="adminEmail" type="email" placeholder="admin@comunidadedoreino.org.br" required />
+          </div>
+          <div class="field">
+            <label for="adminSenha">Senha</label>
+            <input id="adminSenha" type="password" placeholder="••••••••" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Entrar no painel</button>
+          <p>Simulação: preencha os campos para liberar o painel administrativo nesta sessão.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section admin-shell-section" data-admin-area hidden>
+      <div class="container admin-topbar">
+        <div>
+          <p class="eyebrow">Sistema administrativo</p>
+          <strong>Comunidade do Reino</strong>
+        </div>
+        <button class="btn btn-secondary" type="button" data-admin-logout><i data-lucide="log-out"></i>Sair</button>
+      </div>
+      <div class="container admin-shell">
+        <aside class="sidebar admin-sidebar" aria-label="Menu administrativo institucional">
+          <div class="admin-sidebar__brand">
+            <span>CR</span>
+            <div>
+              <strong>Admin</strong>
+              <small>Gestão institucional</small>
+            </div>
+          </div>
+          <a class="active" href="#dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+          <a href="#usuarios"><i data-lucide="users"></i>Usuários</a>
+          <a href="#institucional"><i data-lucide="landmark"></i>Institucional</a>
+          <a href="#voluntarios"><i data-lucide="heart-handshake"></i>Voluntários</a>
+          <a href="#conteudos"><i data-lucide="newspaper"></i>Conteúdo</a>
+          <a href="#agenda"><i data-lucide="calendar-days"></i>Agenda</a>
+          <a href="#configuracoes"><i data-lucide="settings"></i>Configurações</a>
+          <a href="#seguranca"><i data-lucide="shield-check"></i>Logs</a>
+        </aside>
+
+        <div class="admin-content">
+          <section id="dashboard" class="admin-section">
+            <div class="section-header section-header--small">
+              <p class="eyebrow">Dashboard</p>
+              <h2>Visão geral da Comunidade.</h2>
+              <p class="lead">Painel institucional para acompanhar cadastros, voluntários, conteúdos, agenda e pendências administrativas em uma visão clara.</p>
+            </div>
+            <div class="admin-quick-actions" aria-label="Ações rápidas do painel administrativo">
+              <button class="btn btn-primary" type="button" data-admin-open="usuarios"><i data-lucide="user-plus"></i>Novo usuário</button>
+              <button class="btn btn-secondary" type="button" data-admin-open="voluntarios"><i data-lucide="heart-handshake"></i>Registrar voluntário</button>
+              <button class="btn btn-secondary" type="button" data-admin-open="agenda"><i data-lucide="calendar-plus"></i>Novo evento</button>
+            </div>
+            <div class="admin-kpi-grid">
+              <article class="admin-kpi-card"><i data-lucide="users"></i><span>Usuários</span><strong data-kpi="users">128</strong><small data-kpi-note="users">12 novos no mês</small></article>
+              <article class="admin-kpi-card"><i data-lucide="heart-handshake"></i><span>Voluntários ativos</span><strong data-kpi="volunteers">46</strong><small data-kpi-note="volunteers">8 em treinamento</small></article>
+              <article class="admin-kpi-card"><i data-lucide="calendar-check"></i><span>Próximos eventos</span><strong data-kpi="events">7</strong><small data-kpi-note="events">3 públicos e 4 internos</small></article>
+              <article class="admin-kpi-card"><i data-lucide="file-text"></i><span>Conteúdos</span><strong data-kpi="contents">23</strong><small data-kpi-note="contents">5 rascunhos</small></article>
+            </div>
+            <div class="grid grid-2 admin-dashboard-panels">
+              <article class="card">
+                <span class="badge">Alertas</span>
+                <h3>Pendências administrativas</h3>
+                <ul class="admin-list">
+                  <li><span>5 voluntários aguardando análise</span><strong>Alta</strong></li>
+                  <li><span>2 eventos sem responsável definido</span><strong>Média</strong></li>
+                  <li><span>3 conteúdos em rascunho</span><strong>Média</strong></li>
+                </ul>
+              </article>
+              <article class="card">
+                <span class="badge">Atividade</span>
+                <h3>Últimas ações</h3>
+                <ul class="admin-timeline">
+                  <li><time>Hoje</time><span>Departamento de Ação Social atualizado.</span></li>
+                  <li><time>Ontem</time><span>Novo evento interno cadastrado.</span></li>
+                  <li><time>Segunda</time><span>Conta de voluntário aprovada.</span></li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section id="usuarios" class="admin-section">
+            <div class="admin-section-heading">
+              <div>
+                <p class="eyebrow">Gestão de usuários</p>
+                <h2>Controle de acesso e cadastro.</h2>
+              </div>
+              <a class="btn btn-primary" href="#novo-usuario">Novo usuário</a>
+            </div>
+            <div class="admin-toolbar">
+              <input class="input" type="search" placeholder="Buscar por nome, e-mail, departamento ou status" data-search="#usuariosAdmin" />
+              <select aria-label="Filtrar por perfil" data-admin-user-filter>
+                <option>Todos os perfis</option>
+                <option>Administrador Geral</option>
+                <option>Coordenador</option>
+                <option>Líder de Departamento</option>
+                <option>Voluntário</option>
+              </select>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table" id="usuariosAdmin">
+                <thead><tr><th>Nome</th><th>Perfil</th><th>Departamento</th><th>Status</th><th>Último acesso</th></tr></thead>
+                <tbody>
+                  <tr data-search-item><td>Paulo Silva</td><td>Administrador Geral</td><td>Institucional</td><td><span class="status-pill">Ativo</span></td><td>Hoje, 09:42</td></tr>
+                  <tr data-search-item><td>Marina Costa</td><td>Coordenadora</td><td>Ensino</td><td><span class="status-pill">Ativo</span></td><td>Ontem, 18:10</td></tr>
+                  <tr data-search-item><td>Rafael Lima</td><td>Líder de Departamento</td><td>Comunicação</td><td><span class="status-pill status-pill--warning">Pendente</span></td><td>Sem acesso</td></tr>
+                  <tr data-search-item><td>Ana Rocha</td><td>Voluntária</td><td>Ação Social</td><td><span class="status-pill">Ativo</span></td><td>12/07/2026</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <form id="novo-usuario" class="card form-grid admin-form" data-admin-user-form>
+              <h3 class="form-full">Cadastrar usuário</h3>
+              <div class="field"><label for="nomeUsuario">Nome completo</label><input id="nomeUsuario" required /></div>
+              <div class="field"><label for="emailUsuario">E-mail</label><input id="emailUsuario" type="email" required /></div>
+              <div class="field"><label for="departamentoUsuario">Departamento</label><select id="departamentoUsuario"><option>Institucional</option><option>Ensino</option><option>Comunicação</option><option>Ação Social</option><option>Eventos</option></select></div>
+              <div class="field"><label for="perfilUsuario">Perfil</label><select id="perfilUsuario"><option>Administrador Geral</option><option>Coordenador</option><option>Líder de Departamento</option><option>Voluntário</option><option>Usuário da Comunidade</option></select></div>
+              <div class="field"><label for="statusUsuario">Status</label><select id="statusUsuario"><option>Ativo</option><option>Inativo</option><option>Pendente</option></select></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar usuário</button>
+            </form>
+          </section>
+
+          <section id="institucional" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Institucional</p><h2>Identidade, equipes e governança.</h2></div>
+            </div>
+            <div class="admin-institutional-grid">
+              <article class="card admin-identity-card"><span class="badge">Missão</span><h3>Cuidar, formar e servir.</h3><p>Organização interna orientada por acolhimento, discipulado, projetos sociais e comunicação transparente.</p></article>
+              <article class="card admin-identity-card"><span class="badge">Responsáveis</span><h3>Coordenação ativa</h3><p>Cadastro de líderes, departamentos e funções para manter a atuação da comunidade rastreável.</p></article>
+            </div>
+            <div class="grid grid-3" data-admin-departments>
+              <article class="card admin-module-card"><span class="badge">Comunicação</span><h3>12 membros</h3><p>Líder: Rafael Lima. Responsável por notícias, redes sociais, mídia e publicações.</p></article>
+              <article class="card admin-module-card"><span class="badge">Ensino</span><h3>18 membros</h3><p>Líder: Marina Costa. Responsável por estudos, treinamentos e materiais formativos.</p></article>
+              <article class="card admin-module-card"><span class="badge">Ação Social</span><h3>16 membros</h3><p>Líder: Ana Rocha. Responsável por projetos de cuidado e atendimento comunitário.</p></article>
+            </div>
+            <form class="card form-grid admin-form" data-admin-department-form>
+              <h3 class="form-full">Adicionar núcleo institucional</h3>
+              <div class="field"><label for="departamentoNome">Nome do núcleo</label><input id="departamentoNome" required /></div>
+              <div class="field"><label for="departamentoLider">Líder responsável</label><input id="departamentoLider" required /></div>
+              <div class="field"><label for="departamentoMembros">Quantidade de membros</label><input id="departamentoMembros" type="number" min="1" value="1" required /></div>
+              <div class="field"><label for="departamentoFuncao">Função principal</label><input id="departamentoFuncao" placeholder="Ex.: acolhimento, ensino, comunicação" required /></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar núcleo</button>
+            </form>
+          </section>
+
+          <section id="voluntarios" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Voluntários</p><h2>Acompanhamento de inscrições e atuação.</h2></div>
+            </div>
+            <div class="grid grid-4 admin-status-grid">
+              <article class="card"><span class="badge">Pendente</span><strong>5</strong><p>Aguardando análise da coordenação.</p></article>
+              <article class="card"><span class="badge">Em treinamento</span><strong>8</strong><p>Participando da preparação inicial.</p></article>
+              <article class="card"><span class="badge">Ativo</span><strong>46</strong><p>Vinculados a departamentos.</p></article>
+              <article class="card"><span class="badge">Inativo</span><strong>9</strong><p>Sem atuação no período atual.</p></article>
+            </div>
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Candidaturas</p><h2>Análise e aprovação pela coordenação.</h2></div>
+            </div>
+            <div class="admin-candidate-review" data-admin-candidate-review>
+              <article data-admin-candidate-card>
+                <div>
+                  <span class="badge status-pill status-pill--warning" data-admin-candidate-status>Em análise</span>
+                  <h3>Marina Oliveira</h3>
+                  <p>Cuidado comunitário • Semanal • Cadastro recebido em 15 jul</p>
+                </div>
+                <div class="admin-candidate-actions">
+                  <button class="btn btn-secondary" type="button" data-admin-candidate-action="Documentos pendentes">Pedir documentos</button>
+                  <button class="btn btn-secondary" type="button" data-admin-candidate-action="Entrevista agendada">Agendar entrevista</button>
+                  <button class="btn btn-primary" type="button" data-admin-candidate-action="Aprovada">Aprovar candidatura</button>
+                </div>
+              </article>
+            </div>
+            <form class="card form-grid admin-form" data-admin-volunteer-form>
+              <h3 class="form-full">Registrar voluntário</h3>
+              <div class="field"><label for="voluntarioNome">Nome</label><input id="voluntarioNome" required /></div>
+              <div class="field"><label for="voluntarioDepartamento">Departamento de interesse</label><select id="voluntarioDepartamento"><option>Ação Social</option><option>Ensino</option><option>Comunicação</option><option>Eventos</option><option>Recepção</option></select></div>
+              <div class="field"><label for="voluntarioStatus">Status</label><select id="voluntarioStatus"><option>Pendente de análise</option><option>Aprovado</option><option>Ativo</option><option>Em treinamento</option><option>Desligado</option></select></div>
+              <div class="field"><label for="voluntarioFuncao">Função</label><input id="voluntarioFuncao" placeholder="Ex.: Apoio em eventos" /></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar voluntário</button>
+            </form>
+            <div class="admin-board" data-admin-volunteers>
+              <article><span class="badge">Ativo</span><h3>Ana Rocha</h3><p>Ação Social • Coordenação de cuidado comunitário</p></article>
+              <article><span class="badge">Em treinamento</span><h3>Lucas Mendes</h3><p>Eventos • Apoio em recepção</p></article>
+            </div>
+          </section>
+
+          <section id="conteudos" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Conteúdo do site</p><h2>Publicações, notícias, podcast e vídeos.</h2></div>
+            </div>
+            <div class="admin-board" data-admin-contents>
+              <article><span class="badge">Rascunho</span><h3>Notícia sobre voluntariado</h3><p>Aguardando revisão editorial.</p></article>
+              <article><span class="badge">Publicado</span><h3>Podcast: serviço e propósito</h3><p>Publicado na área de podcasts.</p></article>
+              <article><span class="badge">Arquivado</span><h3>Comunicado antigo</h3><p>Removido da página pública.</p></article>
+            </div>
+            <form class="card form-grid admin-form" data-admin-content-form>
+              <h3 class="form-full">Criar conteúdo</h3>
+              <div class="field"><label for="conteudoTitulo">Título</label><input id="conteudoTitulo" required /></div>
+              <div class="field"><label for="conteudoTipo">Tipo</label><select id="conteudoTipo"><option>Notícia</option><option>Podcast</option><option>Vídeo</option><option>Comunicado</option></select></div>
+              <div class="field"><label for="conteudoStatus">Status</label><select id="conteudoStatus"><option>Rascunho</option><option>Publicado</option><option>Arquivado</option></select></div>
+              <div class="field"><label for="conteudoResumo">Resumo</label><input id="conteudoResumo" placeholder="Breve descrição para a equipe" required /></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar conteúdo</button>
+            </form>
+          </section>
+
+          <section id="agenda" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Agenda</p><h2>Eventos, reuniões e treinamentos.</h2></div>
+            </div>
+            <div class="admin-calendar-list" data-admin-events>
+              <article><time datetime="2026-07-20">20 jul</time><div><h3>Treinamento de voluntários</h3><p>Ensino • 19h30 • Sala principal</p></div></article>
+              <article><time datetime="2026-07-23">23 jul</time><div><h3>Reunião de líderes</h3><p>Departamentos • 20h • Online</p></div></article>
+              <article><time datetime="2026-07-27">27 jul</time><div><h3>Ação social comunitária</h3><p>Ação Social • 08h • Bairro central</p></div></article>
+            </div>
+            <form class="card form-grid admin-form" data-admin-event-form>
+              <h3 class="form-full">Agendar evento</h3>
+              <div class="field"><label for="eventoTitulo">Título</label><input id="eventoTitulo" required /></div>
+              <div class="field"><label for="eventoData">Data</label><input id="eventoData" type="date" required /></div>
+              <div class="field"><label for="eventoHora">Horário</label><input id="eventoHora" type="time" required /></div>
+              <div class="field"><label for="eventoArea">Área</label><select id="eventoArea"><option>Institucional</option><option>Ensino</option><option>Ação Social</option><option>Comunicação</option><option>Eventos</option></select></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar evento</button>
+            </form>
+          </section>
+
+          <section id="configuracoes" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Configurações</p><h2>Dados institucionais básicos.</h2></div>
+            </div>
+            <form class="card form-grid admin-form" data-admin-config-form>
+              <div class="field"><label for="instituicaoNome">Nome da instituição</label><input id="instituicaoNome" value="Comunidade do Reino" /></div>
+              <div class="field"><label for="instituicaoEmail">E-mail</label><input id="instituicaoEmail" type="email" value="contato@comunidadedoreino.org.br" /></div>
+              <div class="field"><label for="instituicaoTelefone">Telefone</label><input id="instituicaoTelefone" value="(69) 98473-4129" /></div>
+              <div class="field"><label for="instituicaoInstagram">Instagram</label><input id="instituicaoInstagram" value="@comunidadedoreino001" /></div>
+              <button class="btn btn-primary form-full" type="submit">Salvar configurações</button>
+            </form>
+          </section>
+
+          <section id="seguranca" class="admin-section">
+            <div class="admin-section-heading">
+              <div><p class="eyebrow">Segurança, logs e LGPD</p><h2>Rastreabilidade administrativa.</h2></div>
+            </div>
+            <div class="grid grid-2">
+              <article class="card"><span class="badge">Permissões</span><h3>Perfis iniciais</h3><p>Administrador Geral, Coordenador, Líder de Departamento, Voluntário e Usuário da Comunidade.</p></article>
+              <article class="card"><span class="badge">Logs</span><h3>Eventos auditáveis</h3><p>Login, criação de usuário, alteração de conteúdo, desativação de conta e mudança de permissões.</p></article>
+            </div>
+            <ul class="admin-timeline admin-log-list" data-admin-logs>
+              <li><time>Agora</time><span>Login administrativo demonstrativo iniciado.</span></li>
+              <li><time>Hoje</time><span>Painel institucional revisado pela coordenação.</span></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div data-component="footer"></div>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</body>
+
+</html>
