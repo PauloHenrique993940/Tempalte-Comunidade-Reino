@@ -843,15 +843,16 @@ p {
   color: #fff;
 
   background-image:
+    linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
     linear-gradient(90deg, #05224d 0%, #05224d 36%, rgba(5, 34, 77, 0.7) 46%, rgba(5, 34, 77, 0) 58%),
     radial-gradient(circle at 76% 40%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.06) 18%, rgba(5, 34, 77, 0) 44%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.010) 0 1px, transparent 1px 0px),
     url("../images/comunidadeReinoCapa.jpeg"),
     linear-gradient(#05224d, #05224d);
   background-color: #05224d;
-  background-position: center, center, center, right center, center;
+  background-position: center, center, center, center, right center, center;
   background-repeat: no-repeat;
-  background-size: cover, cover, auto, auto 112%, cover;
+  background-size: cover, cover, cover, auto, auto 112%, cover;
   min-height: 100vh;
   display: grid;
   align-items: center;
@@ -4069,13 +4070,14 @@ body.admin-is-authenticated [data-component="footer"] {
     min-height: 100vh;
     padding: 104px 0 54px;
     background-image:
+      linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
       linear-gradient(90deg, #05224d 0%, rgba(5, 34, 77, 0.82) 44%, rgba(5, 34, 77, 0) 72%),
       radial-gradient(circle at 70% 26%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 22%, rgba(5, 34, 77, 0) 52%),
       url("../images/HeroCapa.jpeg"),
       linear-gradient(#05224d, #05224d);
     background-color: #05224d;
-    background-position: center, center, right bottom, center;
-    background-size: cover, cover, contain, cover;
+    background-position: center, center, center, right bottom, center;
+    background-size: cover, cover, cover, contain, cover;
   }
 
   .hero-copy {
