@@ -1,10 +1,9 @@
 const site = {
   nav: [
-    ["index.html", "Início", "home"],
     ["quem-somos.html", "Quem Somos", "landmark"],
     ["projetos.html", "Projetos", "heart-handshake"],
     ["biblioteca.html", "Biblioteca", "book-open"],
-    ["podcasts.html", "Podcasts", "headphones"],
+    ["voluntariado.html", "Voluntariado", "users-round"],
     ["contato.html", "Contato", "send"],
   ],
   footerGroups: {
@@ -60,7 +59,7 @@ function renderHeader() {
         <div class="header-actions">
           <div class="access-select" data-access-menu>
             <button class="access-select__button" type="button" aria-label="Selecionar área de acesso" aria-expanded="false" data-access-toggle>
-              ${icon("key-round", "Acesso")}
+              ${icon("user-round", "Acesso")}
               <span class="access-select__chevron" aria-hidden="true"></span>
             </button>
             <div class="access-select__menu" hidden>
