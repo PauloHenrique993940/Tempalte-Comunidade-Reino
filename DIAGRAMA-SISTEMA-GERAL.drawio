@@ -1,0 +1,152 @@
+<mxfile host="app.diagrams.net" modified="2026-07-16T00:00:00.000Z" agent="GitHub Copilot" version="24.7.17" type="device">
+  <diagram id="comunidade-reino-sistema-geral" name="Sistema Geral">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Comunidade do Reino - Como o sistema vai funcionar" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="330" y="30" width="940" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Visao futura: site publico + areas restritas + backend + banco de dados + arquivos + notificacoes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#536078;" vertex="1" parent="1">
+          <mxGeometry x="360" y="78" width="880" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actorGroup" value="1. Usuarios" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef3fb;strokeColor=#8ea6d4;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="40" y="150" width="210" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="publicUser" value="Visitante / Usuario publico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8ea6d4;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="70" y="210" width="150" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="volunteerUser" value="Voluntario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8ea6d4;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="70" y="305" width="150" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="leaderUser" value="Lider / Coordenador" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8ea6d4;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="70" y="400" width="150" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="adminUser" value="Administrador" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#8ea6d4;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="70" y="495" width="150" height="54" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontGroup" value="2. Frontend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8dc;strokeColor=#c99818;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="320" y="150" width="280" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="publicSite" value="Site publico&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Home, projetos, biblioteca, podcasts, contato&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c99818;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="355" y="205" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="forms" value="Formularios&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Contato, voluntariado, inscricoes, pesquisas&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c99818;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="355" y="300" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="volunteerArea" value="Area do voluntario&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Perfil, atividades, certificados, treinamentos&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c99818;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="355" y="395" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="adminPanel" value="Painel administrativo&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Dashboard, usuarios, voluntarios, conteudos, agenda&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c99818;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="355" y="490" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="backendGroup" value="3. Backend / API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf7ef;strokeColor=#5a9f75;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="690" y="150" width="300" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="API principal&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Recebe, valida e responde requisicoes&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5a9f75;fontStyle=1;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="735" y="205" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="auth" value="Autenticacao&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Login, sessao, recuperacao de senha&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5a9f75;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="735" y="300" width="210" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="permissions" value="Permissoes&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Admin, coordenador, lider, voluntario&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5a9f75;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="735" y="382" width="210" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="businessRules" value="Regras do sistema&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;LGPD, status, aprovacao, validacoes&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#5a9f75;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="735" y="464" width="210" height="62" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dataGroup" value="4. Dados e arquivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7eefb;strokeColor=#9b70b7;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="150" width="300" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="database" value="Banco de dados&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Usuarios, perfis, voluntarios, respostas, eventos&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#9b70b7;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="205" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="storage" value="Storage de arquivos&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;PDFs, capas, imagens, certificados&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#9b70b7;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="320" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="auditLogs" value="Logs e auditoria&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Acessos, alteracoes e eventos sensiveis&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#9b70b7;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="435" width="210" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="integrationGroup" value="5. Servicos externos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fbeeee;strokeColor=#bf6b6b;fontStyle=1;fontColor=#102459;" vertex="1" parent="1">
+          <mxGeometry x="360" y="690" width="900" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="email" value="E-mail / notificacoes&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Confirmacao, avisos, recuperacao de senha&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#bf6b6b;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="415" y="750" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="pdfGenerator" value="Gerador de documentos&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Certificados, declaracoes, relatorios&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#bf6b6b;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="675" y="750" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="futureIntegrations" value="Integracoes futuras&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;WhatsApp, CRM, aplicativo, analytics&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#bf6b6b;fontColor=#17233d;" vertex="1" parent="1">
+          <mxGeometry x="935" y="750" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="noteCurrent" value="Hoje: site estatico + MVP demonstrativo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#17233d;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="700" width="210" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="noteFuture" value="Proxima fase: backend real, banco, login, permissoes e formularios conectados" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#17233d;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="780" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="acessa" style="endArrow=block;html=1;rounded=0;strokeColor=#536078;fontColor=#536078;" edge="1" parent="1" source="publicUser" target="publicSite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="preenche" style="endArrow=block;html=1;rounded=0;strokeColor=#536078;fontColor=#536078;" edge="1" parent="1" source="publicUser" target="forms">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="entra" style="endArrow=block;html=1;rounded=0;strokeColor=#536078;fontColor=#536078;" edge="1" parent="1" source="volunteerUser" target="volunteerArea">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="gerencia" style="endArrow=block;html=1;rounded=0;strokeColor=#536078;fontColor=#536078;" edge="1" parent="1" source="leaderUser" target="adminPanel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="administra" style="endArrow=block;html=1;rounded=0;strokeColor=#536078;fontColor=#536078;" edge="1" parent="1" source="adminUser" target="adminPanel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="conteudo publico" style="endArrow=block;html=1;rounded=0;strokeColor=#c99818;fontColor=#536078;" edge="1" parent="1" source="publicSite" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="envio de dados" style="endArrow=block;html=1;rounded=0;strokeColor=#c99818;fontColor=#536078;" edge="1" parent="1" source="forms" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="area restrita" style="endArrow=block;html=1;rounded=0;strokeColor=#c99818;fontColor=#536078;" edge="1" parent="1" source="volunteerArea" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="gestao" style="endArrow=block;html=1;rounded=0;strokeColor=#c99818;fontColor=#536078;" edge="1" parent="1" source="adminPanel" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="valida login" style="endArrow=block;html=1;rounded=0;strokeColor=#5a9f75;fontColor=#536078;" edge="1" parent="1" source="api" target="auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="checa acesso" style="endArrow=block;html=1;rounded=0;strokeColor=#5a9f75;fontColor=#536078;" edge="1" parent="1" source="api" target="permissions">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="aplica regras" style="endArrow=block;html=1;rounded=0;strokeColor=#5a9f75;fontColor=#536078;" edge="1" parent="1" source="api" target="businessRules">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="grava e consulta" style="endArrow=block;html=1;rounded=0;strokeColor=#9b70b7;fontColor=#536078;" edge="1" parent="1" source="api" target="database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="salva arquivos" style="endArrow=block;html=1;rounded=0;strokeColor=#9b70b7;fontColor=#536078;" edge="1" parent="1" source="api" target="storage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="registra acoes" style="endArrow=block;html=1;rounded=0;strokeColor=#9b70b7;fontColor=#536078;" edge="1" parent="1" source="api" target="auditLogs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="notifica" style="endArrow=block;html=1;rounded=0;strokeColor=#bf6b6b;fontColor=#536078;" edge="1" parent="1" source="api" target="email">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="gera" style="endArrow=block;html=1;rounded=0;strokeColor=#bf6b6b;fontColor=#536078;" edge="1" parent="1" source="api" target="pdfGenerator">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" value="integra" style="endArrow=block;html=1;rounded=0;strokeColor=#bf6b6b;fontColor=#536078;" edge="1" parent="1" source="api" target="futureIntegrations">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
