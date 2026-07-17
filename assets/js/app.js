@@ -138,12 +138,17 @@ function renderFooter() {
             <p class="footer-about">Portal institucional de informação, cuidado, biblioteca, projetos, voluntariado e comunicação da Comunidade do Reino.</p>
             <div class="socials footer-socials" aria-label="Redes sociais">
               <a href="https://instagram.com/comunidadedoreino001" aria-label="Instagram">
-              <img src="assets/icons/instagram.svg" alt="Instagram"></a>
+                <img src="assets/icons/instagram.svg" alt="Instagram">
               </a>
               <a href="https://facebook.com" aria-label="Facebook">
-              <img src="assets/icons/facebook.svg" alt="Facebook"></a>
-              <a href="https://youtube.com" aria-label="YouTube"> <img src="assets/icons/youtube.svg" alt="Youtube"></a></a>
-              <a href="https://spotify.com" aria-label="Spotify"> <img src="assets/icons/spotify.svg" alt="Spotify"></a></a>
+                <img src="assets/icons/facebook.svg" alt="Facebook">
+              </a>
+              <a href="https://youtube.com" aria-label="YouTube">
+                <img src="assets/icons/youtube.svg" alt="Youtube">
+              </a>
+              <a href="https://spotify.com" aria-label="Spotify">
+                <img src="assets/icons/spotify.svg" alt="Spotify">
+              </a>
             </div>
           </div>${groups}
         </div>
@@ -156,18 +161,30 @@ function setupMenu() {
   const button = document.querySelector("[data-menu-toggle]");
   const nav = document.getElementById("siteNav");
   if (!button || !nav) return;
+
+  const closeMenu = () => {
+    nav.classList.remove("is-open");
+    button.classList.remove("is-open");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Abrir menu");
+    document.body.classList.remove("is-locked");
+  };
+
   button.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
     button.classList.toggle("is-open", isOpen);
     button.setAttribute("aria-expanded", String(isOpen));
+    button.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
     document.body.classList.toggle("is-locked", isOpen);
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+
   nav.addEventListener("click", (event) => {
     if (!event.target.closest("a")) return;
-    nav.classList.remove("is-open");
-    button.classList.remove("is-open");
-    button.setAttribute("aria-expanded", "false");
-    document.body.classList.remove("is-locked");
+    closeMenu();
   });
 }
 
