@@ -1195,6 +1195,8 @@ function setupProjectCarousel() {
   if (!carousel) return;
   const track = carousel.querySelector(".project-carousel__track");
   const dotsContainer = carousel.querySelector(".project-carousel__dots");
+  const previousButton = carousel.querySelector("[data-carousel-previous]");
+  const nextButton = carousel.querySelector("[data-carousel-next]");
   const cards = Array.from(track.children);
   let isDragging = false;
   let startX = 0;
@@ -1217,6 +1219,12 @@ function setupProjectCarousel() {
       (carousel.clientWidth - cards[activeIndex].clientWidth) / 2;
     updatePosition(targetX);
     highlightDot(activeIndex);
+    cards.forEach((card, cardIndex) => {
+      card.classList.toggle("is-active", cardIndex === activeIndex);
+      card.setAttribute("aria-hidden", String(cardIndex !== activeIndex));
+    });
+    previousButton?.toggleAttribute("disabled", activeIndex === 0);
+    nextButton?.toggleAttribute("disabled", activeIndex === cards.length - 1);
   };
 
   const refreshDimensions = () => {
@@ -1232,6 +1240,7 @@ function setupProjectCarousel() {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "project-carousel__dot";
+      button.setAttribute("aria-label", `Ir para o projeto ${index + 1}`);
       button.addEventListener("click", () => snapToCard(index));
       dotsContainer.appendChild(button);
     });
@@ -1244,12 +1253,18 @@ function setupProjectCarousel() {
       .querySelectorAll(".project-carousel__dot")
       .forEach((dot, dotIndex) => {
         dot.classList.toggle("is-active", dotIndex === index);
+        dot.setAttribute("aria-current", String(dotIndex === index));
       });
   };
 
   createDots();
+  snapToCard(activeIndex);
+
+  previousButton?.addEventListener("click", () => snapToCard(activeIndex - 1));
+  nextButton?.addEventListener("click", () => snapToCard(activeIndex + 1));
 
   carousel.addEventListener("pointerdown", (event) => {
+    if (event.target.closest(".project-carousel__navigation")) return;
     isDragging = true;
     startX = event.clientX;
     startTrackX = trackX;
@@ -1267,7 +1282,14 @@ function setupProjectCarousel() {
     if (!isDragging) return;
     isDragging = false;
     carousel.classList.remove("is-dragging");
-    const index = Math.round(trackX / cardWidth);
+    const index = cards.reduce(
+      (nearestIndex, card, index) =>
+        Math.abs(card.offsetLeft - trackX - (carousel.clientWidth - card.clientWidth) / 2) <
+        Math.abs(cards[nearestIndex].offsetLeft - trackX - (carousel.clientWidth - cards[nearestIndex].clientWidth) / 2)
+          ? index
+          : nearestIndex,
+      0,
+    );
     snapToCard(index);
   };
 
